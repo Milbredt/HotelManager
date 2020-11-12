@@ -9,6 +9,8 @@ namespace ProgramUI
 
             Console.WriteLine("Hello Filip hahahaha!");
             Console.WriteLine("Hello Fhaha!");
+            Console.WriteLine("Jag är inne!");
+
 
 
         }
