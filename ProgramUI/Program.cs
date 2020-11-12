@@ -6,7 +6,7 @@ namespace ProgramUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Filip hehe!");
+            Console.WriteLine("Hello Filip hahahaha!");
         }
     }
 }
