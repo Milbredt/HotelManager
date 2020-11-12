@@ -7,6 +7,7 @@ namespace ProgramUI
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Filip!");
+            Console.WriteLine("Hello Linn!");
         }
     }
 }
