@@ -5,7 +5,7 @@ namespace HotelClassLibrary
     {
 
         public Guest (string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) 
-        : base (firstName, lastname, userName, password)
+        : base (firstName, lastName, userName, password)
         {
             this.GuestId = guestId;
             this.Email = email;
