@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using HotelClassLibrary;
 
 namespace ProgramUI {
     class Program {
         static void Main (string[] args) {
             string userName;
-            string password;            
+            string password;     
 
+            HotelManager hotelManager = new HotelManager();
+            hotelManager.AddRoom();
             UserAuthentication userAuthentication = new UserAuthentication ();
            // userAuthentication.AddUser("name", "password");
 
@@ -15,13 +18,13 @@ namespace ProgramUI {
             var input = Console.ReadKey ();
 
             switch (input.Key) {
-                case ConsoleKey.D1:
-                    ChoiceForStaff (input);
+                case ConsoleKey.D1: //Staff Login
+                    ChoiceForStaff ();
 
                     break;
 
-                case ConsoleKey.D2:
-                    Console.WriteLine ("Staff login");
+                case ConsoleKey.D2: //Guest login
+                    Console.WriteLine ("Guest login");
                     Console.Write ("Username: ");
                     userName = Console.ReadLine ();
                     Console.Write("Password: ");
@@ -29,7 +32,7 @@ namespace ProgramUI {
 
                     userAuthentication.TryValidateUser(userName, password);
 
-                    ChoiceForGuest (input);
+                    ChoiceForGuest (hotelManager);
 
                     break;
 
@@ -38,13 +41,23 @@ namespace ProgramUI {
             }
 
         }
-        static void ChoiceForGuest (ConsoleKeyInfo consoleKey) {
+        static void ChoiceForGuest (HotelManager hotelManager) {
             System.Console.WriteLine ("gör något av följande val....");
             var input = Console.ReadKey ();
 
             switch (input.Key) {
                 case ConsoleKey.D1:
                     //se lediga rum
+                    List<Room> availableRooms = hotelManager.ViewAvailableRooms();
+
+                    string roomDescriptions = "";
+
+                    foreach (Room room in availableRooms)
+                    {
+                        roomDescriptions += "Number of beds: " +room.NumberOfBeds + ".\n" +
+                        "Price per night: " + room.PricePerNight + " SEK.\n" + 
+                        "Square meters: " + room.SquareMeters + ".";
+                    }
 
                     break;
 
@@ -58,7 +71,7 @@ namespace ProgramUI {
             }
         }
 
-        static void ChoiceForStaff (ConsoleKeyInfo consoleKey) {
+        static void ChoiceForStaff () {
             System.Console.WriteLine ("gör något av följande val....");
             var input = Console.ReadKey ();
 
