@@ -6,10 +6,11 @@ namespace HotelClassLibrary
         public User(string firstName, string lastName, string userName, string password)
         {
             this.FirstName = firstName;
-            this.LastName = lastname;
+            this.LastName = lastName;
             this.UserName = userName;
             this.Password = password;
         }
+        public User(){}
 
         
         public string FirstName { get; set; }

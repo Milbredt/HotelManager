@@ -5,60 +5,85 @@ namespace HotelClassLibrary
 
     public class UserAuthentication
     {
-       
-        Dictionary<int, Guest> dictionaryOfUsers = new Dictionary<int, Guest>();
+
+        Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest>();
         Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
 
-
-        public string AddGuestUser(string userName, string password) // HA KVAR AddStaffUser
+        public string AddGuestUser(string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) // HA KVAR AddStaffUser
         {
-            
-            foreach (Guest guest in dictionaryOfUsers)  // Kod som gör att det inte går att lägga till en användare med samma användarnamn
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
             {
-                if (user.UserName == userName)
+                if (guest.Value.UserName == userName)
 
                     return "This username is already taken";
             }
-            Guest newGuestUser = new Guest(userName, password);
-            dictionaryOfUsers.Add(newGuestUser);
-            return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
-        }    
-         public string AddStaffUser(string userName, string password) // HA KVAR AddStaffUser
+            Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestId, email, phonenumber, streetaddress, postalcode, city, creditCardNumber);
+            dictionaryOfGuest.Add(guestId, newGuestUser);
+            return $"Adding this guest user suceeded! \n\nUsername: {userName} \n Password: {password}";
+        }
+        public string AddStaffUser(string userName, string password, string firstName, string lastName)
         {
-            foreach (Guest guest in dictionaryOfUsers)  // Kod som gör att det inte går att lägga till en användare med samma användarnamn
-            {
-                if (user.UserName == userName)
+            int staffId = 3;
+            staffId++;
 
-                    return "This username is already taken";
-            }
-            Staff newStaffUser = new Staff(userName, password);
-            dictionaryOfUsers.Add(newStaffUser);
-            return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
-        }     
-        
-        public bool TryValidateUser(string userName, string password)
+
+            Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffId);
+            dictionaryOfStaff.Add(staffId, newStaffUser);
+            return $"Adding this staff user suceeded! \n\nUsername: {userName} \n Password: {password}";
+
+        }
+
+        public bool CheckIfUsernameExist(string userName)
         {
-            foreach (User user in dictionaryOfUsers)
+            foreach (KeyValuePair<int, HotelClassLibrary.Staff> staff in dictionaryOfStaff)
             {
-                if (user.UserName == userName && user.Password == password)
+                if (staff.Value.UserName == userName)
+
+                    return false;
+            }
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
+            {
+                if (guest.Value.UserName == userName)
+
+                    return false;
+            }
+            return true;
+        }
+
+        public bool TryValidateGuestUser(string userName, string password)
+        {
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
+            {
+                if (guest.Value.UserName == userName && guest.Value.Password == password)
 
                     return true;
             }
             return false;
         }
 
-       /* 
-        public string RemoveUser(string userName) // HA KVAR?????????
+        public bool TryValidateStaffUser(string userName, string password)
         {
-            foreach (var user in listOfUsers)
+            foreach (KeyValuePair<int, HotelClassLibrary.Staff> staff in dictionaryOfStaff)
             {
-                if (user.UserName == userName)
-                {
-                    listOfUsers.RemoveAll(user => user.UserName == userName);
-                    return "Användaren " + userName + " är nu borttagen!\nTryck på en valfri tangent för att fortsätta";
-                }
+                if (staff.Value.UserName == userName && staff.Value.Password == password)
+
+                    return true;
             }
-            return "Felaktig inmatning. Användaren finns ej.";
-        }*/
+            return false;
+        }
+
+        /* 
+         public string RemoveUser(string userName) // HA KVAR?????????
+         {
+             foreach (var user in listOfUsers)
+             {
+                 if (user.UserName == userName)
+                 {
+                     listOfUsers.RemoveAll(user => user.UserName == userName);
+                     return "Användaren " + userName + " är nu borttagen!\nTryck på en valfri tangent för att fortsätta";
+                 }
+             }
+             return "Felaktig inmatning. Användaren finns ej.";
+         }*/
     }
 }
