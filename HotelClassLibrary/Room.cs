@@ -10,10 +10,10 @@ namespace HotelClassLibrary
 
         public Room(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
-            roomNumber = RoomNumber;
-            squareMeters = SquareMeters;
-            numberOfBeds = NumberOfBeds;
-            pricePerNight = PricePerNight;
+            RoomNumber = roomNumber;
+            SquareMeters = squareMeters;
+            NumberOfBeds = numberOfBeds;
+            PricePerNight = pricePerNight;
             IsBooked = false;
         }
     }
