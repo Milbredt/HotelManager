@@ -9,7 +9,7 @@ namespace HotelClassLibrary
         public Dictionary<int, int> staff = new Dictionary<int, int>();
         public Dictionary<int, int> users = new Dictionary<int, int>();
 
-        
+
 
         public void CheckInGuest()
         {
@@ -31,17 +31,7 @@ namespace HotelClassLibrary
 
         }
 
-        public void ViewAllRooms()
-        {
-            string roomDescriptions = "";
 
-            foreach (KeyValuePair<int, Room> room in rooms)
-            {
-                roomDescriptions += "Number of beds: " + room.Value.NumberOfBeds + "\n" + 
-                "Square meters: " + room.Value.SquareMeters + "\n" + 
-                "Price per night: " + room.Value.PricePerNight + "\n";
-            }
-        }
 
         public void AddRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
@@ -68,9 +58,31 @@ namespace HotelClassLibrary
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
         }
 
-        public void ViewAvailableRooms()
+        public void ViewAllRooms()
         {
+            string roomDescriptions = "";
+
+            foreach (KeyValuePair<int, Room> room in rooms)
+            {
+                roomDescriptions += "Number of beds: " + room.Value.NumberOfBeds + "\n" +
+                "Square meters: " + room.Value.SquareMeters + "\n" +
+                "Price per night: " + room.Value.PricePerNight + "\n";
+            }
+        }
+
+        public List<Room> ViewAvailableRooms()
+        {
+            List<Room> availableRooms = new List<Room>();
             
+            foreach (KeyValuePair<int, Room> room in rooms)
+            {
+
+                if (room.Value.isBooked == false)
+                {
+                    availableRooms.Add(room.Value);
+                }
+            }
+            return availableRooms;
         }
 
 
