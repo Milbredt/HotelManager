@@ -14,17 +14,17 @@ namespace ProgramUI
             switch (input.Key)
             {
                 case ConsoleKey.D1:
-                ChoiceForStaff(input);
+                    ChoiceForStaff(input);
 
-                break;
+                    break;
 
                 case ConsoleKey.D2:
-                 ChoiceForGuest(input);
-                
-                break;
+                    ChoiceForGuest(input);
+
+                    break;
 
                 default:
-                break;
+                    break;
             }
 
 
@@ -42,14 +42,14 @@ namespace ProgramUI
             switch (input.Key)
             {
                 case ConsoleKey.D1:
-                
-                 break;
+                    //se lediga rum
+
+                    break;
 
                 case ConsoleKey.D2:
-                 break;
+                    // se bokat rum
 
-                case ConsoleKey.D3:
-                 break;
+                    break;
 
                 default:
                     break;
@@ -57,26 +57,36 @@ namespace ProgramUI
         }
 
 
-         static void ChoiceForStaff(ConsoleKeyInfo consoleKey)
-         {
+        static void ChoiceForStaff(ConsoleKeyInfo consoleKey)
+        {
+            System.Console.WriteLine("gör något av följande val....");
+            var input = Console.ReadKey();
 
-          var input = Console.ReadKey();
+            switch (input.Key)
+            {
+                case ConsoleKey.D1:
+                    // checkInGuest
+                    // MakeRoomUnavalible
+                    break;
 
-         switch (input.Key)
-         {
-             case ConsoleKey.D1:
-             break;
+                case ConsoleKey.D2:
+                    // checkOutGuest
+                    //payRoom
+                    // MakeRoomAvalible
+                    break;
 
-             case ConsoleKey.D2:
-             break;
+                case ConsoleKey.D3:
+                    // BookRoom
+                    break;
 
-             case ConsoleKey.D3:
-             break;
+                case ConsoleKey.D4:
+                    // Add Room
+                    break;
 
-             default:
-             break;
-         }
-         }
+                default:
+                    break;
+            }
+        }
 
     }
 }
