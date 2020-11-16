@@ -1,20 +1,12 @@
 namespace HotelClassLibrary
 {
-    class User
+
+    abstract class User
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-
-        //Konstruktor
-        public User(string userName, string password)
-        {
-            this.UserName = userName;
-            this.Password = password;
-        }
-
-         public override string ToString()
-         {
-             return $"Username: {UserName}  \n Password {Password}";
-         }
+        
     }
 }
