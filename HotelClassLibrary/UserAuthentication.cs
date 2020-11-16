@@ -12,13 +12,14 @@ namespace HotelClassLibrary
 
         public string AddGuestUser(string userName, string password) // HA KVAR AddStaffUser
         {
+            
             foreach (Guest guest in dictionaryOfUsers)  // Kod som gör att det inte går att lägga till en användare med samma användarnamn
             {
                 if (user.UserName == userName)
 
                     return "This username is already taken";
             }
-            Guest newGestUser = new Guest(userName, password);
+            Guest newGuestUser = new Guest(userName, password);
             dictionaryOfUsers.Add(newGuestUser);
             return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }    
@@ -30,8 +31,8 @@ namespace HotelClassLibrary
 
                     return "This username is already taken";
             }
-            Guest newGestUser = new Guest(userName, password);
-            dictionaryOfUsers.Add(newUser);
+            Staff newStaffUser = new Staff(userName, password);
+            dictionaryOfUsers.Add(newStaffUser);
             return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }     
         
