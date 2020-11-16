@@ -5,14 +5,14 @@ namespace ProgramUI {
     class Program {
         static void Main (string[] args) {
             string userName;
-            string password;
-            var input;
+            string password;            
 
             UserAuthentication userAuthentication = new UserAuthentication ();
+           // userAuthentication.AddUser("name", "password");
 
             System.Console.WriteLine ("1- staff / 2- guest");
 
-            input = Console.ReadKey ();
+            var input = Console.ReadKey ();
 
             switch (input.Key) {
                 case ConsoleKey.D1:
@@ -27,7 +27,7 @@ namespace ProgramUI {
                     Console.Write("Password: ");
                     password = Console.ReadLine();
 
-                    userAuthentication.
+                    userAuthentication.TryValidateUser(userName, password);
 
                     ChoiceForGuest (input);
 
