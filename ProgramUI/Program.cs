@@ -6,12 +6,12 @@ namespace ProgramUI {
     class Program {
         static void Main (string[] args) {
             string userName;
-            string password;     
+            string password;
 
-            HotelManager hotelManager = new HotelManager();
-            hotelManager.AddRoom();
+            HotelManager hotelManager = new HotelManager ();
+            hotelManager.AddRoom ();
             UserAuthentication userAuthentication = new UserAuthentication ();
-           // userAuthentication.AddUser("name", "password");
+            userAuthentication.AddStaffUser ("user", "pass", "firstname", "lastname");
 
             System.Console.WriteLine ("1- staff / 2- guest");
 
@@ -19,6 +19,16 @@ namespace ProgramUI {
 
             switch (input.Key) {
                 case ConsoleKey.D1: //Staff Login
+                    Console.WriteLine ("Staff login");
+                    Console.Write ("Username: ");
+                    userName = Console.ReadLine ();
+
+                    userAuthentication.CheckisUsernameExist(userName);
+
+                    Console.Write ("Password: ");
+                    password = Console.ReadLine ();
+                    userAuthentication.TryValidateStaffUser (userName, password);
+                    Console.WriteLine (userAuthentication.TryValidateStaffUser (userName, password));
                     ChoiceForStaff ();
 
                     break;
@@ -27,10 +37,10 @@ namespace ProgramUI {
                     Console.WriteLine ("Guest login");
                     Console.Write ("Username: ");
                     userName = Console.ReadLine ();
-                    Console.Write("Password: ");
-                    password = Console.ReadLine();
+                    Console.Write ("Password: ");
+                    password = Console.ReadLine ();
 
-                    userAuthentication.TryValidateGuestUser(userName, password);
+                    userAuthentication.TryValidateGuestUser (userName, password);
 
                     ChoiceForGuest (hotelManager);
 
@@ -48,15 +58,14 @@ namespace ProgramUI {
             switch (input.Key) {
                 case ConsoleKey.D1:
                     //se lediga rum
-                    List<Room> availableRooms = hotelManager.ViewAvailableRooms();
+                    List<Room> availableRooms = hotelManager.ViewAvailableRooms ();
 
                     string roomDescriptions = "";
 
-                    foreach (Room room in availableRooms)
-                    {
-                        roomDescriptions += "Number of beds: " +room.NumberOfBeds + ".\n" +
-                        "Price per night: " + room.PricePerNight + " SEK.\n" + 
-                        "Square meters: " + room.SquareMeters + ".";
+                    foreach (Room room in availableRooms) {
+                        roomDescriptions += "Number of beds: " + room.NumberOfBeds + ".\n" +
+                            "Price per night: " + room.PricePerNight + " SEK.\n" +
+                            "Square meters: " + room.SquareMeters + ".";
                     }
 
                     break;
