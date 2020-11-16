@@ -1,14 +1,15 @@
 using System.Collections.Generic;
-using System.IO;
+
 
 namespace HotelClassLibrary
 {
-    class HotelManager
+    public class HotelManager
     {
         public Dictionary<int, Room> rooms = new Dictionary<int, Room>();
         public Dictionary<int, int> staff = new Dictionary<int, int>();
         public Dictionary<int, int> users = new Dictionary<int, int>();
 
+        
 
         public void CheckInGuest()
         {
@@ -65,6 +66,11 @@ namespace HotelClassLibrary
             Room newRoom9 = new Room(10, 20, 1, 2133);
 
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
+        }
+
+        public void ViewAvailableRooms()
+        {
+            
         }
 
 
