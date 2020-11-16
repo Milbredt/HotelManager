@@ -1,5 +1,6 @@
 namespace HotelClassLibrary
 {
+
     abstract class User
     {
         public string FirstName { get; set; }

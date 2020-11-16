@@ -1,25 +1,35 @@
 ﻿using System;
+using HotelClassLibrary;
 
-namespace ProgramUI
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace ProgramUI {
+    class Program {
+        static void Main (string[] args) {
+            string userName;
+            string password;
+            var input;
 
-            System.Console.WriteLine("1- staff / 2- guest");
+            UserAuthentication userAuthentication = new UserAuthentication ();
 
-            var input = Console.ReadKey();
+            System.Console.WriteLine ("1- staff / 2- guest");
 
-            switch (input.Key)
-            {
+            input = Console.ReadKey ();
+
+            switch (input.Key) {
                 case ConsoleKey.D1:
-                    ChoiceForStaff(input);
+                    ChoiceForStaff (input);
 
                     break;
 
                 case ConsoleKey.D2:
-                    ChoiceForGuest(input);
+                    Console.WriteLine ("Staff login");
+                    Console.Write ("Username: ");
+                    userName = Console.ReadLine ();
+                    Console.Write("Password: ");
+                    password = Console.ReadLine();
+
+                    userAuthentication.
+
+                    ChoiceForGuest (input);
 
                     break;
 
@@ -27,20 +37,12 @@ namespace ProgramUI
                     break;
             }
 
-
-
-
-
-
-
         }
-        static void ChoiceForGuest(ConsoleKeyInfo consoleKey)
-        {
-            System.Console.WriteLine("gör något av följande val....");
-            var input = Console.ReadKey();
+        static void ChoiceForGuest (ConsoleKeyInfo consoleKey) {
+            System.Console.WriteLine ("gör något av följande val....");
+            var input = Console.ReadKey ();
 
-            switch (input.Key)
-            {
+            switch (input.Key) {
                 case ConsoleKey.D1:
                     //se lediga rum
 
@@ -56,14 +58,11 @@ namespace ProgramUI
             }
         }
 
+        static void ChoiceForStaff (ConsoleKeyInfo consoleKey) {
+            System.Console.WriteLine ("gör något av följande val....");
+            var input = Console.ReadKey ();
 
-        static void ChoiceForStaff(ConsoleKeyInfo consoleKey)
-        {
-            System.Console.WriteLine("gör något av följande val....");
-            var input = Console.ReadKey();
-
-            switch (input.Key)
-            {
+            switch (input.Key) {
                 case ConsoleKey.D1:
                     // checkInGuest
                     // MakeRoomUnavalible
