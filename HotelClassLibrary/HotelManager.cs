@@ -73,11 +73,11 @@ namespace HotelClassLibrary
         public List<Room> ViewAvailableRooms()
         {
             List<Room> availableRooms = new List<Room>();
-            
+
             foreach (KeyValuePair<int, Room> room in rooms)
             {
 
-                if (room.Value.isBooked == false)
+                if (room.Value.IsBooked == false)
                 {
                     availableRooms.Add(room.Value);
                 }
