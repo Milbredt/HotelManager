@@ -68,17 +68,18 @@ namespace ProgramUI
             {
                 case ConsoleKey.D1:
                     //se lediga rum
-                    List<Room> availableRooms = hotelManager.ViewAvailableRooms();
+                    string availableRooms = hotelManager.ViewAllRooms ();
 
-                    string roomDescriptions = "";
+                    //string roomDescriptions = "";
 
-                    foreach (Room room in availableRooms)
-                    {
-                        roomDescriptions += "Number of beds: " + room.NumberOfBeds + ".\n" +
-                            "Price per night: " + room.PricePerNight + " SEK.\n" +
-                            "Square meters: " + room.SquareMeters + ".";
-                    }
-                    Console.WriteLine(roomDescriptions);
+                    Console.WriteLine(availableRooms);
+
+                    // foreach (Room room in availableRooms) {
+                    //     roomDescriptions += "Number of beds: " + room.NumberOfBeds + ".\n" +
+                    //         "Price per night: " + room.PricePerNight + " SEK.\n" +
+                    //         "Square meters: " + room.SquareMeters + ".";
+                    // }
+
                     break;
 
                 case ConsoleKey.D2:

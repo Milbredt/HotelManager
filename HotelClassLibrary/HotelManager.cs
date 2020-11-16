@@ -66,7 +66,7 @@ namespace HotelClassLibrary
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
         }
 
-        public void ViewAllRooms()
+        public string ViewAllRooms()
         {
             string roomDescriptions = "";
 
@@ -76,6 +76,7 @@ namespace HotelClassLibrary
                 "Square meters: " + room.SquareMeters + "\n" +
                 "Price per night: " + room.PricePerNight + "\n";
             }
+            return roomDescriptions;
         }
 
         public List<Room> ViewAvailableRooms()
