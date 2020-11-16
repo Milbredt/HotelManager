@@ -6,7 +6,7 @@ namespace HotelClassLibrary
         public int SquareMeters { get; set; }
         public int NumberOfBeds { get; set; }
         public int PricePerNight { get; set; }
-        public bool isBooked { get; set;}
+        public bool IsBooked { get; set;}
 
         public Room(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
@@ -14,6 +14,7 @@ namespace HotelClassLibrary
             squareMeters = SquareMeters;
             numberOfBeds = NumberOfBeds;
             pricePerNight = PricePerNight;
+            IsBooked = false;
         }
     }
 }
