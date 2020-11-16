@@ -33,7 +33,7 @@ namespace HotelClassLibrary
 
         }
 
-        public bool CheckisUsernameExist(string userName)
+        public bool CheckIfUsernameExist(string userName)
         {
             foreach (KeyValuePair<int, HotelClassLibrary.Staff> staff in dictionaryOfStaff)
             {
@@ -70,15 +70,6 @@ namespace HotelClassLibrary
                     return true;
             }
             return false;
-        }
-
-        public Dictionary<int, Guest> GetStaffuser()
-        {
-            foreach (KeyValuePair<int, HotelClassLibrary.Staff> staff in dictionaryOfStaff)
-            {
-                Console.WriteLine(staff.key
-            }
-            return
         }
 
         /* 

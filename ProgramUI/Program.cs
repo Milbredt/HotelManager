@@ -34,15 +34,16 @@ namespace ProgramUI {
                     break;
 
                 case ConsoleKey.D2: //Guest login
-                    Console.WriteLine ("Guest login");
+                    ChoiceForGuest (hotelManager);
+                    
+                    /*Console.WriteLine ("Guest login");
                     Console.Write ("Username: ");
                     userName = Console.ReadLine ();
                     Console.Write ("Password: ");
                     password = Console.ReadLine ();
 
-                    userAuthentication.TryValidateGuestUser (userName, password);
+                    userAuthentication.TryValidateGuestUser (userName, password);*/
 
-                    ChoiceForGuest (hotelManager);
 
                     break;
 
