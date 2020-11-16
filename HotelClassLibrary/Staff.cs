@@ -6,5 +6,5 @@ namespace HotelClassLibrary {
             this.StaffId = staffId;
         }
         public int StaffId { get; set; }
-    }
+    } 
 }
