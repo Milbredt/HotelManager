@@ -1,48 +1,51 @@
 using System.Collections.Generic;
 
+namespace HotelClassLibrary {
 
-namespace HotelClassLibrary
-{
+    public class UserAuthentication {
 
-    public class UserAuthentication
-    {
+        Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest> ();
+        Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff> ();
 
-        Dictionary<int, Guest> dictionaryOfUsers = new Dictionary<int, Guest>();
-        Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
-
-     
-
-
-        public string AddGuestUser(string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) // HA KVAR AddStaffUser
+        public string AddGuestUser (string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) // HA KVAR AddStaffUser
         {
-            foreach (KeyValuePair<int, HotelClassLibrary.Guest> entry in dictionaryOfUsers) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
             {
-                if (user.UserName == userName)
+                if (guest.Value.UserName == userName)
 
                     return "This username is already taken";
             }
-            Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestId, email, phonenumber, streetaddress, postalcode, city, creditCardNumber);
-            dictionaryOfUsers.Add(guestId, newGuestUser);
+            Guest newGuestUser = new Guest (firstName, lastName, userName, password, guestId, email, phonenumber, streetaddress, postalcode, city, creditCardNumber);
+            dictionaryOfGuest.Add (guestId, newGuestUser);
             return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }
-        public string AddStaffUser(string userName, string password) // HA KVAR AddStaffUser
+        public string AddStaffUser (string userName, string password, string firstName, string lastName) // HA KVAR AddStaffUser
         {
-            foreach (KeyValuePair<int, HotelClassLibrary.Staff> entry in dictionaryOfStaff) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
+            int staffId = 3;
+            staffId++;
+            foreach (KeyValuePair<int, HotelClassLibrary.Staff> staff in dictionaryOfStaff) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
             {
-                if (staff.UserName == userName)
+                if (staff.Value.UserName == userName)
 
                     return "This username is already taken";
             }
-            Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffId);
-            dictionaryOfUsers.Add(staff.staffId, newStaffUser);
+            Staff newStaffUser = new Staff (firstName, lastName, userName, password, staffId);
+            dictionaryOfStaff.Add (staffId, newStaffUser);
             return $"Adding this user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }
 
-        public bool TryValidateUser(string userName, string password)
-        {
-            foreach (User user in dictionaryOfUsers)
-            {
-                if (user.UserName == userName && user.Password == password)
+        public bool TryValidateGuestUser (string userName, string password) {
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest) {
+                if (guest.Value.UserName == userName && guest.Value.Password == password)
+
+                    return true;
+            }
+            return false;
+        }
+
+        public bool TryValidateStaffUser (string userName, string password) {
+            foreach (KeyValuePair<int, HotelClassLibrary.Guest> staff in dictionaryOfGuest) {
+                if (staff.Value.UserName == userName && staff.Value.Password == password)
 
                     return true;
             }

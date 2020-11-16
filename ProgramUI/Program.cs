@@ -30,7 +30,7 @@ namespace ProgramUI {
                     Console.Write("Password: ");
                     password = Console.ReadLine();
 
-                    userAuthentication.TryValidateUser(userName, password);
+                    userAuthentication.TryValidateGuestUser(userName, password);
 
                     ChoiceForGuest (hotelManager);
 

@@ -14,9 +14,8 @@ namespace HotelClassLibrary
             this.PostalCode = postalcode;
             this.City = city;
             this.CreditCardNumber = creditCardNumber;
-
-
         }
+        public Guest(){}
 
   
 

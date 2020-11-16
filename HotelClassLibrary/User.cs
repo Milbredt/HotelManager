@@ -10,6 +10,7 @@ namespace HotelClassLibrary
             this.UserName = userName;
             this.Password = password;
         }
+        public User(){}
 
         
         public string FirstName { get; set; }
