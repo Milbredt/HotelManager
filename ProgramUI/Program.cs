@@ -1,82 +1,104 @@
 ﻿using System;
+using System.Collections.Generic;
+using HotelClassLibrary;
 
-namespace ProgramUI
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace ProgramUI {
+    class Program {
+        static void Main (string[] args) {
+            string userName;
+            string password;     
 
-            System.Console.WriteLine("1- staff / 2- guest");
+            HotelManager hotelManager = new HotelManager();
+            hotelManager.AddRoom();
+            UserAuthentication userAuthentication = new UserAuthentication ();
+           // userAuthentication.AddUser("name", "password");
 
-            var input = Console.ReadKey();
+            System.Console.WriteLine ("1- staff / 2- guest");
 
-            switch (input.Key)
-            {
-                case ConsoleKey.D1:
-                ChoiceForStaff(input);
+            var input = Console.ReadKey ();
 
-                break;
+            switch (input.Key) {
+                case ConsoleKey.D1: //Staff Login
+                    ChoiceForStaff ();
 
-                case ConsoleKey.D2:
-                 ChoiceForGuest(input);
-                
-                break;
+                    break;
+
+                case ConsoleKey.D2: //Guest login
+                    Console.WriteLine ("Guest login");
+                    Console.Write ("Username: ");
+                    userName = Console.ReadLine ();
+                    Console.Write("Password: ");
+                    password = Console.ReadLine();
+
+                    userAuthentication.TryValidateUser(userName, password);
+
+                    ChoiceForGuest (hotelManager);
+
+                    break;
 
                 default:
-                break;
+                    break;
             }
 
-
-
-
-
-
-
         }
-        static void ChoiceForGuest(ConsoleKeyInfo consoleKey)
-        {
-            System.Console.WriteLine("gör något av följande val....");
-            var input = Console.ReadKey();
+        static void ChoiceForGuest (HotelManager hotelManager) {
+            System.Console.WriteLine ("gör något av följande val....");
+            var input = Console.ReadKey ();
 
-            switch (input.Key)
-            {
+            switch (input.Key) {
                 case ConsoleKey.D1:
-                
-                 break;
+                    //se lediga rum
+                    List<Room> availableRooms = hotelManager.ViewAvailableRooms();
+
+                    string roomDescriptions = "";
+
+                    foreach (Room room in availableRooms)
+                    {
+                        roomDescriptions += "Number of beds: " +room.NumberOfBeds + ".\n" +
+                        "Price per night: " + room.PricePerNight + " SEK.\n" + 
+                        "Square meters: " + room.SquareMeters + ".";
+                    }
+
+                    break;
 
                 case ConsoleKey.D2:
-                 break;
+                    // se bokat rum
 
-                case ConsoleKey.D3:
-                 break;
+                    break;
 
                 default:
                     break;
             }
         }
 
+        static void ChoiceForStaff () {
+            System.Console.WriteLine ("gör något av följande val....");
+            var input = Console.ReadKey ();
 
-         static void ChoiceForStaff(ConsoleKeyInfo consoleKey)
-         {
+            switch (input.Key) {
+                case ConsoleKey.D1:
+                    // checkInGuest
+                    // MakeRoomUnavalible
+                    break;
 
-          var input = Console.ReadKey();
+                case ConsoleKey.D2:
+                    // checkOutGuest
+                    //payRoom
+                    // MakeRoomAvalible
+                    break;
 
-         switch (input.Key)
-         {
-             case ConsoleKey.D1:
-             break;
+                case ConsoleKey.D3:
+                    // BookRoom
+                    break;
 
-             case ConsoleKey.D2:
-             break;
+                case ConsoleKey.D4:
+                    // Add Room
+                    break;
 
-             case ConsoleKey.D3:
-             break;
-
-             default:
-             break;
-         }
-         }
+                default:
+                    break;
+            }
+        }
 
     }
 }
