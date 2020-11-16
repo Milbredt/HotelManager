@@ -2,39 +2,43 @@
 using System.Collections.Generic;
 using HotelClassLibrary;
 
-namespace ProgramUI {
-    class Program {
-        static void Main (string[] args) {
+namespace ProgramUI
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
             string userName;
             string password;
 
-            HotelManager hotelManager = new HotelManager ();
-            hotelManager.AddRoom ();
-            UserAuthentication userAuthentication = new UserAuthentication ();
-            userAuthentication.AddStaffUser ("user", "pass", "firstname", "lastname");
+            HotelManager hotelManager = new HotelManager();
+            hotelManager.AddRoom();
+            UserAuthentication userAuthentication = new UserAuthentication();
+            userAuthentication.AddStaffUser("user", "pass", "firstname", "lastname");
 
-            System.Console.WriteLine ("1- staff / 2- guest");
+            System.Console.WriteLine("1- staff / 2- guest");
 
-            var input = Console.ReadKey ();
+            var input = Console.ReadKey();
 
-            switch (input.Key) {
+            switch (input.Key)
+            {
                 case ConsoleKey.D1: //Staff Login
-                    Console.WriteLine ("Staff login");
-                    Console.Write ("Username: ");
-                    userName = Console.ReadLine ();
+                    Console.WriteLine("Staff login");
+                    Console.Write("Username: ");
+                    userName = Console.ReadLine();
 
                     userAuthentication.CheckIfUsernameExist(userName);
 
-                    Console.Write ("Password: ");
-                    password = Console.ReadLine ();
-                    userAuthentication.TryValidateStaffUser (userName, password);
-                    Console.WriteLine (userAuthentication.TryValidateStaffUser (userName, password));
-                    ChoiceForStaff ();
+                    Console.Write("Password: ");
+                    password = Console.ReadLine();
+                    userAuthentication.TryValidateStaffUser(userName, password);
+                    Console.WriteLine(userAuthentication.TryValidateStaffUser(userName, password));
+                    ChoiceForStaff();
 
                     break;
 
                 case ConsoleKey.D2: //Guest login
-                    ChoiceForGuest (hotelManager);
+                    ChoiceForGuest(hotelManager);
 
                     /*Console.WriteLine ("Guest login");
                     Console.Write ("Username: ");
@@ -44,7 +48,6 @@ namespace ProgramUI {
 
                     userAuthentication.TryValidateGuestUser (userName, password);*/
 
-
                     break;
 
                 default:
@@ -52,23 +55,30 @@ namespace ProgramUI {
             }
 
         }
-        static void ChoiceForGuest (HotelManager hotelManager) {
-            System.Console.WriteLine ("gör något av följande val....");
-            var input = Console.ReadKey ();
+        static void ChoiceForGuest(HotelManager hotelManager)
+        {
+            Console.WriteLine("Guest");
+            Console.WriteLine("Make a choice below");
+            Console.WriteLine("1: View avaible rooms");
+            Console.Write("Choice: ");
 
-            switch (input.Key) {
+            var input = Console.ReadKey();
+
+            switch (input.Key)
+            {
                 case ConsoleKey.D1:
                     //se lediga rum
-                    List<Room> availableRooms = hotelManager.ViewAvailableRooms ();
+                    List<Room> availableRooms = hotelManager.ViewAvailableRooms();
 
                     string roomDescriptions = "";
 
-                    foreach (Room room in availableRooms) {
+                    foreach (Room room in availableRooms)
+                    {
                         roomDescriptions += "Number of beds: " + room.NumberOfBeds + ".\n" +
                             "Price per night: " + room.PricePerNight + " SEK.\n" +
                             "Square meters: " + room.SquareMeters + ".";
                     }
-
+                    Console.WriteLine(roomDescriptions);
                     break;
 
                 case ConsoleKey.D2:
@@ -81,11 +91,13 @@ namespace ProgramUI {
             }
         }
 
-        static void ChoiceForStaff () {
-            System.Console.WriteLine ("gör något av följande val....");
-            var input = Console.ReadKey ();
+        static void ChoiceForStaff()
+        {
+            System.Console.WriteLine("gör något av följande val....");
+            var input = Console.ReadKey();
 
-            switch (input.Key) {
+            switch (input.Key)
+            {
                 case ConsoleKey.D1:
                     // checkInGuest
                     // MakeRoomUnavalible
