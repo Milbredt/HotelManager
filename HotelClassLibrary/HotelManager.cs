@@ -51,6 +51,22 @@ namespace HotelClassLibrary
 
         }
 
+        public void AddRoom()
+        {
+            Room newRoom = new Room(1, 65, 4, 2233);
+            Room newRoom1 = new Room(2, 63, 3, 1933);
+            Room newRoom2 = new Room(3, 62, 4, 2133);
+            Room newRoom3 = new Room(4, 45, 3, 3233);
+            Room newRoom4 = new Room(5, 67, 2, 2233);
+            Room newRoom5 = new Room(6, 17, 2, 3233);
+            Room newRoom6 = new Room(7, 14, 1, 2233);
+            Room newRoom7 = new Room(8, 21, 2, 4333);
+            Room newRoom8 = new Room(9, 20, 2, 2333);
+            Room newRoom9 = new Room(10, 20, 1, 2133);
+
+            //roomNumber, squareMeters, numberOfBeds, pricePerNight
+        }
+
 
 
 
