@@ -8,18 +8,16 @@ namespace HotelClassLibrary
         public Dictionary<int, Room> rooms = new Dictionary<int, Room>();
         public Dictionary<int, int> staff = new Dictionary<int, int>();
         public Dictionary<int, int> users = new Dictionary<int, int>();
+        List<Booking> bookingList = new List<Booking>();
+        List<Room> RoomList = new List<Room>();
 
 
-
-        public void CheckInGuest()
+        public void BookRoom(int bookingId, int roomId, int guestId)
         {
-
+            //Book
         }
 
-        public void CheckOutGuest()
-        {
-
-        }
+        
 
         public void UpdateRoomStatus()
         {
@@ -54,6 +52,16 @@ namespace HotelClassLibrary
             Room newRoom7 = new Room(8, 21, 2, 4333);
             Room newRoom8 = new Room(9, 20, 2, 2333);
             Room newRoom9 = new Room(10, 20, 1, 2133);
+            RoomList.Add(newRoom);
+            RoomList.Add(newRoom1);
+            RoomList.Add(newRoom2);
+            RoomList.Add(newRoom3);
+            RoomList.Add(newRoom4);
+            RoomList.Add(newRoom5);
+            RoomList.Add(newRoom6);
+            RoomList.Add(newRoom7);
+            RoomList.Add(newRoom8);
+            RoomList.Add(newRoom9);
 
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
         }
