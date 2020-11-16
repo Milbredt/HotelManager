@@ -15,7 +15,6 @@ namespace HotelClassLibrary
 
         public string AddGuestUser(string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) // HA KVAR AddStaffUser
         {
-
             foreach (KeyValuePair<int, HotelClassLibrary.Guest> entry in dictionaryOfUsers) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
             {
                 if (user.UserName == userName)
@@ -28,7 +27,7 @@ namespace HotelClassLibrary
         }
         public string AddStaffUser(string userName, string password) // HA KVAR AddStaffUser
         {
-            foreach (var object in dictionaryOfUsers.Values) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
+            foreach (KeyValuePair<int, HotelClassLibrary.Staff> entry in dictionaryOfStaff) // Kod som gör att det inte går att lägga till en användare med samma användarnamn
             {
                 if (staff.UserName == userName)
 
