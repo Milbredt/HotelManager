@@ -23,7 +23,7 @@ namespace ProgramUI {
                     Console.Write ("Username: ");
                     userName = Console.ReadLine ();
 
-                    userAuthentication.CheckisUsernameExist(userName);
+                    userAuthentication.CheckIfUsernameExist(userName);
 
                     Console.Write ("Password: ");
                     password = Console.ReadLine ();
@@ -35,7 +35,7 @@ namespace ProgramUI {
 
                 case ConsoleKey.D2: //Guest login
                     ChoiceForGuest (hotelManager);
-                    
+
                     /*Console.WriteLine ("Guest login");
                     Console.Write ("Username: ");
                     userName = Console.ReadLine ();
