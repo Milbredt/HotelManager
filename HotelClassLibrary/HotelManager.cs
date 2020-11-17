@@ -32,12 +32,11 @@ namespace HotelClassLibrary
 
 
 
-        public void AddRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
+        public void AddNewRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
             Room newRoom = new Room(roomNumber, squareMeters, numberOfBeds, pricePerNight);
 
             rooms.Add(roomNumber, newRoom);
-
 
         }
 
@@ -67,13 +66,14 @@ namespace HotelClassLibrary
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
         }
 
+
         public string ViewAllRooms()
         {
             string roomDescriptions = "";
 
             foreach (Room room in roomList)
             {
-                roomDescriptions += room.RoomNumber + "\n" + 
+                roomDescriptions += room.RoomNumber + "\n" +
                 "Number of beds: " + room.NumberOfBeds + "\n" +
                 "Square meters: " + room.SquareMeters + "\n" +
                 "Price per night: " + room.PricePerNight + "\n";
@@ -81,7 +81,7 @@ namespace HotelClassLibrary
             return roomDescriptions;
         }
 
-        public string CreateListOfAvailableRooms(int numberOfBeds)
+        public List<Room> CreateListOfAvailableRooms(int numberOfBeds)
         {
             availableRooms.Clear();
 
@@ -92,27 +92,10 @@ namespace HotelClassLibrary
                     availableRooms.Add(room.Value);
                 }
             }
-            
-            string roomDescription = PrintAvailableRooms();
 
-            return roomDescription;            
+
+            return availableRooms;
         }
-
-        public string PrintAvailableRooms()
-        {
-            string roomDescriptions = "";
-            foreach (Room room in availableRooms)
-            {
-                roomDescriptions += "Number of beds: " + room.NumberOfBeds + "\n" +
-                "Square meters: " + room.SquareMeters + "\n" +
-                "Price per night: " + room.PricePerNight + "\n";
-            }
-            return roomDescriptions;
-        }
-
-
-
-
 
     }
 }
