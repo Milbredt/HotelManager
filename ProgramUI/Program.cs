@@ -47,7 +47,7 @@ namespace ProgramUI
                         {
                             Console.WriteLine("Login succeded");
 
-                            ChoiceForStaff(hotelManager);
+                            ChoiceForStaff(hotelManager, userAuthentication);
 
                         }
                         else
@@ -82,7 +82,7 @@ namespace ProgramUI
                     Console.ReadKey();
                     break;
             }
-            
+
             static void ExitProgram()
             {
                 Console.WriteLine("\nProgram exits");
@@ -127,40 +127,82 @@ namespace ProgramUI
 
 
 
-            static void ChoiceForStaff(HotelManager hotelManager)
+            static void ChoiceForStaff(HotelManager hotelManager, UserAuthentication userAuthentication)
             {
                 do
                 {
-                    Console.WriteLine("STAFF LOGIN");
+                    Console.WriteLine("STAFF");
                     Console.WriteLine("Make a choice below");
-                    Console.WriteLine($"[1] - Check in guest\n[2] - Check out guest\n[3] - Book room \n [4] - View all rooms \n[5] - Add new staff useraccount\n[6] - Add new room \n[7] - Exit program");
-                    var input = Console.ReadKey();
+                    Console.WriteLine($"[1] - Check out guest\n[2] - Book room\n[3] - View all rooms \n[4] - View all Avalible rooms\n[5] - Add new staff useraccount\n[6] - Add new room \n[7] - Exit program");
                     Console.Write("Choice: ");
+                    var input = Console.ReadKey();
 
                     switch (input.Key)
                     {
-                        case ConsoleKey.D1:
-                            // checkInGuest
-                            // MakeRoomUnavalible
-                            break;
 
-                        case ConsoleKey.D2:
+                        case ConsoleKey.D1:
+                        //check out
+                        int roomNumber;
+
+                            System.Console.Write("Check out room number :");
+                            roomNumber = Convert.ToInt16(Console.ReadLine());
+                            hotelManager.CheckIfRoomIsPaid(roomNumber);
+
+
                             // checkOutGuest
-                            //payRoom
+                            //payRoom?
                             // MakeRoomAvalible
                             break;
 
+                        case ConsoleKey.D2:
+                            // Book room
+                            break;
+
                         case ConsoleKey.D3:
-                            // BookRoom
+                            // View all rooms
+                            Console.WriteLine(hotelManager.ViewAllRooms());
+                            Console.WriteLine("Press any key to continue");
+                            Console.ReadKey();
                             break;
 
                         case ConsoleKey.D4:
-                            // Add Room
+                        //View all Avalible rooms
+                        break;
+                        
+                        case ConsoleKey.D5:
+                            //Add staff
+                            bool isUserExisting;
+                            do
+                            {
+                                Console.WriteLine("Add staff useraccount");
+                                Console.Write("Type in a username: ");
+                                string userName = Console.ReadLine();
+                                isUserExisting = userAuthentication.CheckIfUsernameExist(userName);
+                                if (isUserExisting == true)
+                                {
+                                    Console.Write("Type in a good password");
+                                    string password = Console.ReadLine();
+                                    Console.Write("Firstname: ");
+                                    string firstName = Console.ReadLine();
+                                    Console.Write("Lastname: ");
+                                    string lastName = Console.ReadLine();
+                                    userAuthentication.AddStaffUser(userName, password, firstName, lastName);
+                                    Console.WriteLine("User successfully added");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Username already exists");
+                                }
+                            } while (isUserExisting == false);
+
+                            break;
+
+                        case ConsoleKey.D6:
+                        //add new room
 
                             System.Console.WriteLine("Add a new room to the hotel\n");
 
                             
-                            int roomNumber;
                             int squareMeters;
                             int numberOfBeds;
                             int pricePerNight;
@@ -177,18 +219,8 @@ namespace ProgramUI
                             hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
                             break;
 
-                        case ConsoleKey.D5:
-                            // View all rooms
-                            hotelManager.ViewAllRooms();
-                            break;
-
-
-                        case ConsoleKey.D6:
-                            // Add new user
-                            break;
-
-
                         case ConsoleKey.D7:
+                            //Exit
                             ExitProgram();
                             break;
 
@@ -200,7 +232,7 @@ namespace ProgramUI
                     }
                 } while (true);
             }
-            
+
         }
     }
 }
