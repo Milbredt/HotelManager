@@ -68,7 +68,7 @@ namespace ProgramUI
 
 
 
-            //Funktioner
+            //Funktioner :)
 
             void ChoiceForGuest(HotelManager hotelManager)
             {
@@ -100,8 +100,6 @@ namespace ProgramUI
                             default:
                                 break;
                         }
-
-                        //HÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄR
 
                         break;
 
@@ -194,8 +192,6 @@ namespace ProgramUI
                                 Console.Write("Type in a username with 6 to 16 characters \nUsername: ");
                                 userName = Console.ReadLine();
                                 isUserExisting = userAuthentication.CheckIfUsernameExist(userName);
-                                Console.Write("Type in a password with 6 to 16 characters \nPassword: ");
-                                password = Console.ReadLine();
 
                                 if (userName.Length < 6 || userName.Length > 16)
                                 {
@@ -203,22 +199,23 @@ namespace ProgramUI
                                     Console.WriteLine("Username can only contain 6 to 16 characters");
                                     Console.ReadKey();
                                 }
-                                else if (password.Length < 6 || password.Length > 16)
+                                
+                                Console.Write("Type in a password with 6 to 16 characters \nPassword: ");
+                                password = Console.ReadLine();
+                                
+                                if (password.Length < 6 || password.Length > 16)
                                 {
                                     isUserExisting = false;
                                     Console.WriteLine("Password can only contain 6 to 16 characters");
                                     Console.ReadKey();
-                                    Console.Write("Type in a password with 6 to 16 characters \nPassword: ");
-                                    password = Console.ReadLine();
                                 }
                                 else if (isUserExisting == false && userName.Length > 6 && password.Length < 16)
-                                {
-                                    isUserExisting = true;
+                                {                                    
                                     userAuthentication.AddStaffUser(userName, password, firstName, lastName);
                                     Console.WriteLine("User successfully added");
                                     Console.Write("Press any key to continue");
                                     Console.ReadKey();
-
+                                    break;
                                 }
                                 else
                                 {

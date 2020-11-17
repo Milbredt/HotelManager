@@ -15,9 +15,6 @@ namespace HotelClassLibrary
             this.City = city;
             this.CreditCardNumber = creditCardNumber;
         }
-        public Guest(){}
-
-  
 
         public int GuestId { get; set; }
         public string Email { get; set; }
