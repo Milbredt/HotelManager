@@ -25,9 +25,20 @@ namespace HotelClassLibrary
 
         }
 
-        public void PayRoom()
+        public void PayRoom(int roomNumber)
         {
 
+
+        }
+
+        public bool CheckIfRoomIsPaid(int roomnumber)
+        {
+            //if (?? == true)
+            //{
+            //    return true;
+            //}
+            //return false;
+            return true;
         }
 
 
@@ -76,7 +87,7 @@ namespace HotelClassLibrary
                 roomDescriptions += room.RoomNumber + "\n" +
                 "Number of beds: " + room.NumberOfBeds + "\n" +
                 "Square meters: " + room.SquareMeters + "\n" +
-                "Price per night: " + room.PricePerNight + "\n";
+                "Price per night: " + room.PricePerNight + "\n\n";
             }
             return roomDescriptions;
         }
