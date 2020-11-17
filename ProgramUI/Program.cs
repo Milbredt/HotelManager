@@ -100,9 +100,7 @@ namespace ProgramUI
                 input = Convert.ToInt16(Console.ReadKey());
                 List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(input);
 
-                string printAvailableRooms = PrintAvailableRooms(availableRooms);
-
-                Console.WriteLine(printAvailableRooms);
+                Console.WriteLine(PrintAvailableRooms(availableRooms));
 
                 Console.WriteLine("Wich room do you want to book?");
                 Console.Write("Choose the number of the room you want to book : ");
