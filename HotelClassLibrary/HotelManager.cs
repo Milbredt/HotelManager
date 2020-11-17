@@ -10,6 +10,7 @@ namespace HotelClassLibrary
         public Dictionary<int, int> users = new Dictionary<int, int>();
         List<Booking> bookingList = new List<Booking>();
         List<Room> roomList = new List<Room>();
+        List<Room> availableRooms = new List<Room>();
 
 
         public void BookRoom(int bookingId, int roomId, int guestId)
@@ -17,26 +18,36 @@ namespace HotelClassLibrary
             //Book
         }
 
-        
+
 
         public void UpdateRoomStatus()
         {
 
         }
 
-        public void PayRoom()
+        public void PayRoom(int roomNumber)
         {
 
+
+        }
+
+        public bool CheckIfRoomIsPaid(int roomnumber)
+        {
+            //if (?? == true)
+            //{
+            //    return true;
+            //}
+            //return false;
+            return true;
         }
 
 
 
-        public void AddRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
+        public void AddNewRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
             Room newRoom = new Room(roomNumber, squareMeters, numberOfBeds, pricePerNight);
 
             rooms.Add(roomNumber, newRoom);
-
 
         }
 
@@ -66,37 +77,36 @@ namespace HotelClassLibrary
             //roomNumber, squareMeters, numberOfBeds, pricePerNight
         }
 
+
         public string ViewAllRooms()
         {
             string roomDescriptions = "";
 
             foreach (Room room in roomList)
             {
-                roomDescriptions += "Number of beds: " + room.NumberOfBeds + "\n" +
+                roomDescriptions += room.RoomNumber + "\n" +
+                "Number of beds: " + room.NumberOfBeds + "\n" +
                 "Square meters: " + room.SquareMeters + "\n" +
-                "Price per night: " + room.PricePerNight + "\n";
+                "Price per night: " + room.PricePerNight + "\n\n";
             }
             return roomDescriptions;
         }
 
-        public List<Room> ViewAvailableRooms()
+        public List<Room> CreateListOfAvailableRooms(int numberOfBeds)
         {
-            List<Room> availableRooms = new List<Room>();
+            availableRooms.Clear();
 
             foreach (KeyValuePair<int, Room> room in rooms)
             {
-
-                if (room.Value.IsBooked == false)
+                if (room.Value.IsBooked == false && room.Value.NumberOfBeds == numberOfBeds)
                 {
                     availableRooms.Add(room.Value);
                 }
             }
+
+
             return availableRooms;
         }
-
-
-
-
 
     }
 }
