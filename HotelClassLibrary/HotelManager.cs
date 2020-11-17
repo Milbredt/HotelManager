@@ -10,6 +10,7 @@ namespace HotelClassLibrary
         public Dictionary<int, int> users = new Dictionary<int, int>();
         List<Booking> bookingList = new List<Booking>();
         List<Room> roomList = new List<Room>();
+        List<Room> availableRooms = new List<Room>();
 
 
         public void BookRoom(int bookingId, int roomId, int guestId)
@@ -17,7 +18,7 @@ namespace HotelClassLibrary
             //Book
         }
 
-        
+
 
         public void UpdateRoomStatus()
         {
@@ -72,26 +73,41 @@ namespace HotelClassLibrary
 
             foreach (Room room in roomList)
             {
-                roomDescriptions += "Number of beds: " + room.NumberOfBeds + "\n" +
+                roomDescriptions += room.RoomNumber + "\n" + 
+                "Number of beds: " + room.NumberOfBeds + "\n" +
                 "Square meters: " + room.SquareMeters + "\n" +
                 "Price per night: " + room.PricePerNight + "\n";
             }
             return roomDescriptions;
         }
 
-        public List<Room> ViewAvailableRooms()
+        public string CreateListOfAvailableRooms(int numberOfBeds)
         {
-            List<Room> availableRooms = new List<Room>();
+            availableRooms.Clear();
 
             foreach (KeyValuePair<int, Room> room in rooms)
             {
-
-                if (room.Value.IsBooked == false)
+                if (room.Value.IsBooked == false && room.Value.NumberOfBeds == numberOfBeds)
                 {
                     availableRooms.Add(room.Value);
                 }
             }
-            return availableRooms;
+            
+            string roomDescription = PrintAvailableRooms();
+
+            return roomDescription;            
+        }
+
+        public string PrintAvailableRooms()
+        {
+            string roomDescriptions = "";
+            foreach (Room room in availableRooms)
+            {
+                roomDescriptions += "Number of beds: " + room.NumberOfBeds + "\n" +
+                "Square meters: " + room.SquareMeters + "\n" +
+                "Price per night: " + room.PricePerNight + "\n";
+            }
+            return roomDescriptions;
         }
 
 
