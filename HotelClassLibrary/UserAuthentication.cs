@@ -5,7 +5,7 @@ namespace HotelClassLibrary
 
     public class UserAuthentication
     {
-
+        int staffIdCount = 0;
         Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest>();
         Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
 
@@ -21,15 +21,15 @@ namespace HotelClassLibrary
             dictionaryOfGuest.Add(guestId, newGuestUser);
             return $"Adding this guest user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }
+
         public string AddStaffUser(string userName, string password, string firstName, string lastName)
         {
-            int staffId = 3;
-            staffId++;
+            staffIdCount++;
 
-
-            Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffId);
-            dictionaryOfStaff.Add(staffId, newStaffUser);
+            Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffIdCount);
+            dictionaryOfStaff.Add(staffIdCount, newStaffUser);
             return $"Adding this staff user suceeded! \n\nUsername: {userName} \n Password: {password}";
+
 
         }
 
