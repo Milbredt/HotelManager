@@ -11,7 +11,7 @@ namespace HotelClassLibrary
         List<Booking> bookingList = new List<Booking>();
         List<Room> roomList = new List<Room>();
         List<Room> availableRooms = new List<Room>();
-
+        
 
         public void BookRoom(int bookingId, int roomId, int guestId)
         {
