@@ -266,7 +266,7 @@ namespace ProgramUI
                             break;
 
                         case ConsoleKey.Escape:      // Återgå till main menu
-                        break;                        
+                            break;
 
                         default:
                             Console.WriteLine("Wrong input. You can only make a choice between 1-6");
@@ -403,22 +403,22 @@ namespace ProgramUI
 
             // PRINT AVALIBLE ROOMS
 
-
-            string PrintAvailableRooms(List<Room> availableRooms)
+            string PrintAvailableRooms(int numberOfBeds)
             {
-                string roomDescriptions = "";
+                string printAvailableRooms = "";
+                List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfBeds);
 
                 int index = 1;
 
                 for (int i = 1; i < availableRooms.Count + 1; i++)
                 {
-                    roomDescriptions += "Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
+                    printAvailableRooms += "Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
                         "Square meters: " + availableRooms[i].SquareMeters + "\n" +
                         "Price per night: " + availableRooms[i].PricePerNight + "\n";
 
                     index++;
                 }
-                return roomDescriptions;
+                return printAvailableRooms;
             }
 
         }
