@@ -23,9 +23,9 @@ namespace ProgramUI
 
                 Console.WriteLine("Welcome to hotel Push n Pull");
                 Console.WriteLine("Make a choice");
-                Console.WriteLine("Press 1: Staff");
-                Console.WriteLine("Press 2: Guest");
-                Console.WriteLine("Press 3: Exit");
+                Console.WriteLine("Press [1]: Staff");
+                Console.WriteLine("Press [2]: Guest");
+                Console.WriteLine("Press [3]: Exit");
                 Console.Write("Choice: ");
 
                 var input = Console.ReadKey();
@@ -35,7 +35,7 @@ namespace ProgramUI
                     case ConsoleKey.D1: //Staff Login
                         Console.WriteLine("\nStaff login");
                         TryLogin();
-                        ChoiceForStaff(hotelManager,userAuthentication);
+                        ChoiceForStaff(hotelManager, userAuthentication);
                         break;
 
                     case ConsoleKey.D2: //Guest login
@@ -82,48 +82,55 @@ namespace ProgramUI
                 Console.WriteLine("Make a choice below");
                 Console.WriteLine("[1] - See our rooms and make a reservation");
                 Console.WriteLine("[2] - Log in or create an new account");
-                Console.WriteLine("Choice: ");
+                Console.Write("Choice: ");
 
-                var input = Console.ReadKey(); 
+                var input = Console.ReadKey();
 
                 switch (input.Key)
                 {
                     case ConsoleKey.D1:
                         //Book room
+                        
+                        Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
+                        int numberOfPersons = Convert.ToInt16(Console.ReadLine());
+                        List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfPersons);
+
+                        Console.WriteLine(PrintAvailableRooms(availableRooms));
+
+                        Console.WriteLine("Wich room do you want to book?");
+                        Console.Write("Choose the number of the room you want to book : ");
+                        int numberOfRooms = Convert.ToInt16(Console.ReadLine());
                         break;
 
                     case ConsoleKey.D2:
-                        // LOG IN
-                        Console.WriteLine("[ENTER] - LOG IN\n[N] - new account");
+                        // LOGIN
+                        Console.WriteLine("[1] - Login \n[2] - Create new account");
+
                         var logInChoice = Console.ReadKey();
 
                         switch (logInChoice.Key)
                         {
-                            case ConsoleKey.Enter:
+                            case ConsoleKey.D1:
                                 TryLogin();
+                                //Choice for logged in guests?
 
                                 break;
-                            case ConsoleKey.N:
+                            case ConsoleKey.D2:
+                                //Lägg till metod GetGuestDetails
                                 //userAuthentication.AddGuestUser();
                                 break;
 
                             default:
+                                Console.WriteLine("Wrong input. You can only press 1 or 2");
                                 break;
                         }
                         break;
 
                     default:
+                        Console.WriteLine("Wrong input. You can only press 1 or 2");
                         break;
                 }
-                Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
-                int numberOfPersons = Convert.ToInt16(Console.ReadLine());
-                List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfPersons);
 
-                Console.WriteLine(PrintAvailableRooms(availableRooms));
-
-                Console.WriteLine("Wich room do you want to book?");
-                Console.Write("Choose the number of the room you want to book : ");
-                int numberOfRooms = Convert.ToInt16(Console.ReadLine());
             }
 
             static string PrintAvailableRooms(List<Room> availableRooms)
@@ -286,13 +293,13 @@ namespace ProgramUI
                     password = Console.ReadLine();
                     userAuthentication.TryValidateGuestUser(userName, password);
                     userAuthentication.TryValidateStaffUser(userName, password);
-                    isUserValid = userAuthentication.TryValidateGuestUser(userName,password);
+                    isUserValid = userAuthentication.TryValidateGuestUser(userName, password);
                     isUserValid = userAuthentication.TryValidateStaffUser(userName, password);
 
                     if (isUserValid == true)
                     {
-                        Console.WriteLine("Login succeded");
-                        //Choice for logged in guests?
+                        Console.WriteLine("Login succeded");                        break;
+                        
                     }
                     else
                     {
@@ -300,8 +307,12 @@ namespace ProgramUI
                     }
                 }
                 while (loginTry <= 3);
-                Console.WriteLine("Number of tries overriden");
-                ExitProgram();
+
+                if (loginTry == 3)
+                {
+                    Console.WriteLine("Number of tries overriden");
+                    ExitProgram();
+                }
             }
         }
     }
