@@ -20,9 +20,48 @@ namespace HotelClassLibrary
 
 
 
-        public void UpdateRoomStatus()
+        public void SetRoomBooked(int roomNumber)
         {
+            foreach (Room room in roomList)
+            {
+                if (roomNumber == room.RoomNumber)
+                {
+                    room.IsBooked = true;
+                }
+            }
+        }
 
+        public void SetRoomAvailable(int roomNumber)
+        {
+            foreach (Room room in roomList)
+            {
+                if (roomNumber == room.RoomNumber)
+                {
+                    room.IsBooked = false;
+                }
+            }
+        }
+
+        public string CheckoutGuest (int guestId)
+        {
+            string paymentNotice = "";
+            foreach (Booking booking in bookingList)
+            {
+                if (guestId == booking.GuestId)
+                {
+                    SetRoomAvailable(booking.RoomId);
+
+                    if (booking.IsPaid == true)
+                    {
+                        return paymentNotice = "Your stay has already been paid. Thank you and welcome back!";
+                    }
+                    else
+                    {
+                        return paymentNotice = "The fee will be charged from your creditcard. Thank you and welcome back";
+                    }
+                }
+            }
+            return paymentNotice;
         }
 
         public void PayRoom(int roomNumber)
