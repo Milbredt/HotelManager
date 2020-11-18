@@ -13,15 +13,10 @@ namespace HotelClassLibrary
         public string AddGuestUser(string firstName, string lastName, string userName, string password, string email, int phoneNumber, string streetAddress, int postalCode, string city, int creditCardNumber) // HA KVAR AddStaffUser
         {
             guestIdCount++;
-            foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
-            {
-                if (guest.Value.UserName == userName)
-
-                    return "This username is already taken";
-            }
+            
             Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
             dictionaryOfGuest.Add(guestIdCount, newGuestUser);
-            return $"Adding this guest user suceeded! \n\nUsername: {userName} \n Password: {password}";
+            return $"Adding this guest user suceeded! \n\nUsername: {userName} \nPassword: {password} \nGuest id: {guestIdCount}";
         }
 
         public string AddStaffUser(string userName, string password, string firstName, string lastName)
@@ -30,9 +25,7 @@ namespace HotelClassLibrary
 
             Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffIdCount);
             dictionaryOfStaff.Add(staffIdCount, newStaffUser);
-            return $"Adding this staff user suceeded! \n\nUsername: {userName} \n Password: {password}";
-
-
+            return $"Adding this staff user suceeded! \n\nUsername: {userName} \nPassword: {password} \nStaff id: {staffIdCount}";
         }
 
         public bool CheckIfUsernameExist(string userName)
