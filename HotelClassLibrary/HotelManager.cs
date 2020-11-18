@@ -12,15 +12,16 @@ namespace HotelClassLibrary
         List<Room> roomList = new List<Room>();
         List<Room> availableRooms = new List<Room>();
         
+        private int bookingCounter = 0;
 
-        public void BookRoom(int bookingId, int roomId, int guestId)
+        public void BookRoom(int roomId, int guestId)
         {
-            //Book
+            Booking newBooking = new Booking(bookingCounter + 1, roomId, guestId);
+
+            SetRoomBooked(roomId);
         }
 
-
-
-        public void SetRoomBooked(int roomNumber)
+        private void SetRoomBooked(int roomNumber)
         {
             foreach (Room room in roomList)
             {
