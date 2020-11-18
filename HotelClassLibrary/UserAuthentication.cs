@@ -6,19 +6,21 @@ namespace HotelClassLibrary
     public class UserAuthentication
     {
         int staffIdCount = 0;
+        int guestIdCount = 0;
         Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest>();
         Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
 
-        public string AddGuestUser(string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, int creditCardNumber) // HA KVAR AddStaffUser
+        public string AddGuestUser(string firstName, string lastName, string userName, string password, string email, int phoneNumber, string streetAddress, int postalCode, string city, int creditCardNumber) // HA KVAR AddStaffUser
         {
+            guestIdCount++;
             foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
             {
                 if (guest.Value.UserName == userName)
 
                     return "This username is already taken";
             }
-            Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestId, email, phonenumber, streetaddress, postalcode, city, creditCardNumber);
-            dictionaryOfGuest.Add(guestId, newGuestUser);
+            Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
+            dictionaryOfGuest.Add(guestIdCount, newGuestUser);
             return $"Adding this guest user suceeded! \n\nUsername: {userName} \n Password: {password}";
         }
 

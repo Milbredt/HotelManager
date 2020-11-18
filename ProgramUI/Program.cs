@@ -8,7 +8,6 @@ namespace ProgramUI
     {
         static void Main(string[] args)
         {
-
             bool isUserValid;
             int loginTry = 1;
 
@@ -19,8 +18,6 @@ namespace ProgramUI
 
             while (true)
             {
-
-
                 Console.WriteLine("Welcome to hotel Push n Pull");
                 Console.WriteLine("Make a choice");
                 Console.WriteLine("Press [1]: Staff");
@@ -62,7 +59,13 @@ namespace ProgramUI
                 }
             }
 
-            static void ExitProgram()
+
+            //Här kommer alla metoder till main
+
+
+
+
+            void ExitProgram()
             {
                 Console.WriteLine("\nProgram exits");
                 Environment.Exit(0);
@@ -70,11 +73,7 @@ namespace ProgramUI
 
 
 
-
-
-
-
-            //Funktioner :)
+            //CHOISE FOR GUEST
 
             void ChoiceForGuest(HotelManager hotelManager)
             {
@@ -90,16 +89,18 @@ namespace ProgramUI
                 {
                     case ConsoleKey.D1:
                         //Book room
-                        
+
                         Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
                         int numberOfPersons = Convert.ToInt16(Console.ReadLine());
                         List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfPersons);
 
-                        Console.WriteLine(PrintAvailableRooms(availableRooms));
-
+                        string rooms = PrintAvailableRooms(availableRooms); // SKRIVS EJ UT. VAD FEL???????????????????????????????????????????
+                        Console.WriteLine(rooms);
                         Console.WriteLine("Wich room do you want to book?");
                         Console.Write("Choose the number of the room you want to book : ");
                         int numberOfRooms = Convert.ToInt16(Console.ReadLine());
+                        //Metod reservation av rum 
+
                         break;
 
                     case ConsoleKey.D2:
@@ -116,8 +117,24 @@ namespace ProgramUI
 
                                 break;
                             case ConsoleKey.D2:
-                                //Lägg till metod GetGuestDetails
                                 //userAuthentication.AddGuestUser();
+                                Console.WriteLine("CREATE NEW HOTEL USER");
+
+
+                                Console.Write("Firstname: ");
+                                string firstName = Console.ReadLine();
+                                Console.Write("Lastname: ");
+                                string lastName = Console.ReadLine();
+                                string user = "Guest";
+                                CreateAccount(firstName, lastName, user);
+                                //Lägg till metod GetGuestDetails
+
+
+
+
+
+
+                                //lägg in detta i guestaccount
                                 break;
 
                             default:
@@ -133,30 +150,22 @@ namespace ProgramUI
 
             }
 
-            static string PrintAvailableRooms(List<Room> availableRooms)
-            {
-                string roomDescriptions = "";
 
-                int index = 1;
 
-                for (int i = 1; i < availableRooms.Count + 1; i++)
-                {
-                    roomDescriptions += "Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
-                        "Square meters: " + availableRooms[i].SquareMeters + "\n" +
-                        "Price per night: " + availableRooms[i].PricePerNight + "\n";
 
-                    index++;
-                }
-                return roomDescriptions;
-            }
 
-            static void ChoiceForStaff(HotelManager hotelManager, UserAuthentication userAuthentication)
+
+
+
+            // FOR STAFF
+
+            void ChoiceForStaff(HotelManager hotelManager, UserAuthentication userAuthentication)
             {
                 do
                 {
                     Console.WriteLine("STAFF");
                     Console.WriteLine("Make a choice below");
-                    Console.WriteLine($"[1] - Check out guest\n[2] - Book room\n[3] - View all rooms \n[4] - View all Avalible rooms\n[5] - Add new staff useraccount\n[6] - Add new room \n[7] - Exit program");
+                    Console.WriteLine("[1] - Check out guest\n[2] - View all rooms\n[3] - View all Avalible rooms\n[4] - Add new staff useraccount\n[5] - Add new room \n[6] - Exit program");
                     Console.Write("Choice: ");
                     var input = Console.ReadKey();
 
@@ -171,78 +180,41 @@ namespace ProgramUI
                             roomNumber = Convert.ToInt16(Console.ReadLine());
                             hotelManager.CheckIfRoomIsPaid(roomNumber);
 
-                            // checkOutGuest
-                            //payRoom?
-                            // MakeRoomAvalible
+                            hotelManager.CheckoutGuest(roomNumber);
+                            hotelManager.SetRoomAvailable(roomNumber);
+
                             break;
 
                         case ConsoleKey.D2:
-                            // Book room
-                            break;
-
-                        case ConsoleKey.D3:
                             // View all rooms
                             Console.WriteLine(hotelManager.ViewAllRooms());
                             Console.WriteLine("Press any key to continue");
                             Console.ReadKey();
                             break;
 
-                        case ConsoleKey.D4:
+                        case ConsoleKey.D3:
                             //View all Avalible rooms
                             break;
 
-                        case ConsoleKey.D5:
+                        case ConsoleKey.D4:
                             //Add staff
-                            bool isUserExisting = false;
-                            string password;
-                            string userName;
+                            Console.WriteLine("ADD NEW STAFF USERACCOUNT");
 
-                            Console.WriteLine("Add staff useraccount");
+
+
                             Console.Write("Firstname: ");
                             string firstName = Console.ReadLine();
                             Console.Write("Lastname: ");
                             string lastName = Console.ReadLine();
+                            //lägg in namn och lastname.....
+                            string user = "staff";
+                            CreateAccount(firstName, lastName, user);
 
-                            do
-                            {
-                                Console.Write("Type in a username with 6 to 16 characters \nUsername: ");
-                                userName = Console.ReadLine();
-                                isUserExisting = userAuthentication.CheckIfUsernameExist(userName);
-
-                                if (userName.Length < 6 || userName.Length > 16)
-                                {
-                                    Console.WriteLine("Username can only contain 6 to 16 characters");
-                                    Console.ReadKey();
-                                }
-
-                                Console.Write("Type in a password with 6 to 16 characters \nPassword: ");
-                                password = Console.ReadLine();
-
-                                if (password.Length < 6 || password.Length > 16)
-                                {
-                                    Console.WriteLine("Password can only contain 6 to 16 characters");
-                                    Console.ReadKey();
-                                }
-                                else if (isUserExisting == true)
-                                {
-                                    Console.WriteLine("Username already exists\n");
-                                    Console.Write("Press any key to do another try");
-                                    Console.ReadKey();
-                                }
-                                else
-                                {
-                                    userAuthentication.AddStaffUser(userName, password, firstName, lastName);
-                                    Console.WriteLine("User successfully added");
-                                    Console.Write("Press any key to continue");
-                                    Console.ReadKey();
-                                    break;
-                                }
-
-                            } while (isUserExisting == true);
 
                             break;
 
-                        case ConsoleKey.D6:
+
+                        case ConsoleKey.D5:
                             //add new room
 
                             Console.WriteLine("Add a new room to the hotel\n");
@@ -263,7 +235,7 @@ namespace ProgramUI
                             hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
                             break;
 
-                        case ConsoleKey.D7:
+                        case ConsoleKey.D6:
                             //Exit
                             ExitProgram();
                             break;
@@ -276,6 +248,10 @@ namespace ProgramUI
                     }
                 } while (true);
             }
+
+
+
+            // LOG IN
 
             void TryLogin()
             {
@@ -298,12 +274,12 @@ namespace ProgramUI
 
                     if (isUserValid == true)
                     {
-                        Console.WriteLine("Login succeded");                        break;
-                        
+                        Console.WriteLine("Login succeded");
+                        break;
                     }
                     else
                     {
-                        Console.WriteLine($"Wrong user name or password. Do another try.\nTry {loginTry++} of 3");
+                        Console.WriteLine($"Wrong username or password. Do another try.\nTry {loginTry++} of 3");
                     }
                 }
                 while (loginTry <= 3);
@@ -314,6 +290,110 @@ namespace ProgramUI
                     ExitProgram();
                 }
             }
+            
+
+            // CREATE NEW ACCOUNT
+
+            void CreateAccount(string firstName, string lastName, string user)
+            {
+                bool isUserExisting = false;
+                do
+                {
+                    string password;
+                    string userName;
+
+                    do
+                    {
+                        Console.Write("Type in a username with 6 to 16 characters \nUsername: ");
+                        userName = Console.ReadLine();
+                        isUserExisting = userAuthentication.CheckIfUsernameExist(userName);
+
+                        if (userName.Length < 6 || userName.Length > 16)
+                        {
+                            Console.WriteLine("Username must contain 6 to 16 characters");
+                            Console.ReadKey();
+                        }
+
+                        else if (isUserExisting == true)
+                        {
+                            Console.WriteLine("Username already exists\n");
+                            Console.Write("Press any key to do another try");
+                            Console.ReadKey();
+                        }
+
+                    } while (userName.Length < 6 || userName.Length > 16 && isUserExisting == true);
+
+                    do
+                    {
+                        Console.Write("Type in a password with 6 to 16 characters \nPassword: ");
+                        password = Console.ReadLine();
+
+                        if (password.Length < 6 || password.Length > 16)
+                        {
+                            Console.WriteLine("Password must contain 6 to 16 characters");
+                            Console.ReadKey();
+                        }
+
+                    } while (password.Length < 6 || password.Length > 16);
+
+                    if (user == "staff")
+                    {
+                        userAuthentication.AddStaffUser(userName, password, firstName, lastName);
+                    }
+                    else
+                    {
+                        GetGuestDetails(firstName, lastName, userName, password);
+                    }
+
+                    Console.WriteLine("User successfully added");
+                    Console.Write("Press any key to continue");
+                    Console.ReadKey();
+                    break;
+
+                } while (isUserExisting == true);
+            }
+
+            void GetGuestDetails(string firstName, string lastName, string userName, string password)
+            {
+                Console.Write("Email: ");
+                string email = Console.ReadLine();
+                Console.Write("Phone number: ");
+                int phoneNumber = Convert.ToInt16(Console.ReadLine());
+                Console.Write("Street address: ");
+                string streetAddress = Console.ReadLine();
+                Console.Write("Postal code: ");
+                int postalCode = Convert.ToInt16(Console.ReadLine());
+                Console.Write("City: ");
+                string city = Console.ReadLine();
+                Console.Write("Creditcard number: ");
+                int creditCardNumber = Convert.ToInt16(Console.ReadLine());
+                userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
+            }
+
+
+
+            // PRINT AVALIBLE ROOMS
+
+
+            string PrintAvailableRooms(List<Room> availableRooms)
+            {
+                string roomDescriptions = "";
+
+                int index = 1;
+
+                for (int i = 1; i < availableRooms.Count + 1; i++)
+                {
+                    roomDescriptions += "Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
+                        "Square meters: " + availableRooms[i].SquareMeters + "\n" +
+                        "Price per night: " + availableRooms[i].PricePerNight + "\n";
+
+                    index++;
+                }
+                return roomDescriptions;
+            }
+
         }
     }
 }
+
+
