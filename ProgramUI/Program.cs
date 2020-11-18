@@ -382,15 +382,15 @@ namespace ProgramUI
                 Console.Write("Email: ");
                 string email = Console.ReadLine();
                 Console.Write("Phone number: ");
-                int phoneNumber = Convert.ToInt16(Console.ReadLine());
+                int phoneNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                 Console.Write("Street address: ");
                 string streetAddress = Console.ReadLine();
                 Console.Write("Postal code: ");
-                int postalCode = Convert.ToInt16(Console.ReadLine());
+                int postalCode = Convert.ToInt16(Console.ReadLine());//TRY CATCH
                 Console.Write("City: ");
                 string city = Console.ReadLine();
                 Console.Write("Creditcard number: ");
-                int creditCardNumber = Convert.ToInt16(Console.ReadLine());
+                int creditCardNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                 string output = userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
                 Console.WriteLine(output);
             }
