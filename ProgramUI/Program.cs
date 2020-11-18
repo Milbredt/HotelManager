@@ -175,6 +175,7 @@ namespace ProgramUI
 
             void ChoiceForStaff(HotelManager hotelManager, UserAuthentication userAuthentication)
             {
+                ConsoleKeyInfo input;
                 do
                 {
                     Console.Clear();
@@ -182,7 +183,7 @@ namespace ProgramUI
                     Console.WriteLine("Make a choice below");
                     Console.WriteLine("[1] - Check out guest\n[2] - View all rooms\n[3] - View all Avalible rooms\n[4] - Add new staff useraccount\n[5] - Add new room \n[6] - Exit program");
                     Console.Write("Choice: ");
-                    var input = Console.ReadKey();
+                    input = Console.ReadKey();
 
                     switch (input.Key)
                     {
@@ -264,13 +265,16 @@ namespace ProgramUI
                             ExitProgram();
                             break;
 
+                        case ConsoleKey.Escape:      // Återgå till main menu
+                        break;                        
+
                         default:
                             Console.WriteLine("Wrong input. You can only make a choice between 1-6");
                             Console.ReadKey();
                             break;
 
                     }
-                } while (true);
+                } while (input.Key != ConsoleKey.Escape);
             }
 
 
