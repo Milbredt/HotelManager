@@ -39,15 +39,15 @@ namespace HotelClassLibrary
             {
                 if (staff.Value.UserName == userName)
 
-                    return false;
+                    return true;
             }
             foreach (KeyValuePair<int, HotelClassLibrary.Guest> guest in dictionaryOfGuest)
             {
                 if (guest.Value.UserName == userName)
 
-                    return false;
+                    return true;
             }
-            return true;
+            return false;
         }
 
         public bool TryValidateGuestUser(string userName, string password)
