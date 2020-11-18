@@ -35,6 +35,7 @@ namespace ProgramUI
                     case ConsoleKey.D1: //Staff Login
                         Console.WriteLine("\nStaff login");
                         TryLogin();
+                        ChoiceForStaff(hotelManager,userAuthentication);
                         break;
 
                     case ConsoleKey.D2: //Guest login
@@ -77,19 +78,23 @@ namespace ProgramUI
 
             void ChoiceForGuest(HotelManager hotelManager)
             {
-                var choice = Console.ReadKey();
-                int number;
+                Console.WriteLine("Welcome guest");
+                Console.WriteLine("Make a choice below");
+                Console.WriteLine("[1] - See our rooms and make a reservation");
+                Console.WriteLine("[2] - Log in or create an new account");
+                Console.WriteLine("Choice: ");
 
-                Console.WriteLine("[1] - Book room\n[2] - Log in");
+                var input = Console.ReadKey(); 
 
-                switch (choice.Key)
+                switch (input.Key)
                 {
                     case ConsoleKey.D1:
                         //Book room
                         break;
+
                     case ConsoleKey.D2:
                         // LOG IN
-                        System.Console.WriteLine("[ENTER] - LOG IN\n[N] - new account");
+                        Console.WriteLine("[ENTER] - LOG IN\n[N] - new account");
                         var logInChoice = Console.ReadKey();
 
                         switch (logInChoice.Key)
@@ -105,7 +110,6 @@ namespace ProgramUI
                             default:
                                 break;
                         }
-
                         break;
 
                     default:
@@ -119,7 +123,7 @@ namespace ProgramUI
 
                 Console.WriteLine("Wich room do you want to book?");
                 Console.Write("Choose the number of the room you want to book : ");
-                number = Convert.ToInt16(Console.ReadLine());
+                int numberOfRooms = Convert.ToInt16(Console.ReadLine());
             }
 
             static string PrintAvailableRooms(List<Room> availableRooms)
@@ -280,15 +284,15 @@ namespace ProgramUI
 
                     Console.Write("Password: ");
                     password = Console.ReadLine();
+                    userAuthentication.TryValidateGuestUser(userName, password);
                     userAuthentication.TryValidateStaffUser(userName, password);
+                    isUserValid = userAuthentication.TryValidateGuestUser(userName,password);
                     isUserValid = userAuthentication.TryValidateStaffUser(userName, password);
 
                     if (isUserValid == true)
                     {
                         Console.WriteLine("Login succeded");
-
-                        ChoiceForStaff(hotelManager, userAuthentication);
-
+                        //Choice for logged in guests?
                     }
                     else
                     {
@@ -296,13 +300,9 @@ namespace ProgramUI
                     }
                 }
                 while (loginTry <= 3);
-                Console.WriteLine("Number of tries overriden.");
+                Console.WriteLine("Number of tries overriden");
                 ExitProgram();
-
             }
-
         }
-
-
     }
 }
