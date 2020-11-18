@@ -11,6 +11,7 @@ namespace HotelClassLibrary
         List<Booking> bookingList = new List<Booking>();
         List<Room> roomList = new List<Room>();
         List<Room> availableRooms = new List<Room>();
+        List<Guest> guestList = new List<Guest>();
         
         private int bookingCounter = 0;
 
@@ -43,14 +44,15 @@ namespace HotelClassLibrary
             }
         }
 
-        public string CheckoutGuest (int guestId)
+        public string CheckoutGuest (int roomNumber)
         {
+            
             string paymentNotice = "";
             foreach (Booking booking in bookingList)
             {
-                if (guestId == booking.GuestId)
+                if (roomNumber == booking.RoomNumber)
                 {
-                    SetRoomAvailable(booking.RoomId);
+                    SetRoomAvailable(booking.RoomNumber);
 
                     if (booking.IsPaid == true)
                     {
@@ -65,10 +67,27 @@ namespace HotelClassLibrary
             return paymentNotice;
         }
 
-        public void PayRoom(int roomNumber)
+        public bool PayRoom(int roomNumber, int guestId, int creditcard)
         {
+            bool roomPaid = false;
 
-
+            foreach (Booking booking in bookingList)
+            {
+                if (booking.RoomNumber == roomNumber && booking.GuestId == guestId)
+                {
+                    foreach (Guest guest in guestList)
+                    {
+                        if (guest.CreditCardNumber == creditcard && guest.GuestId == booking.GuestId)
+                        {
+                            if (booking.IsPaid == true)
+                            {
+                                roomPaid = true;
+                            }
+                        }
+                    }
+                }
+            }            
+            return roomPaid;
         }
 
         public bool CheckIfRoomIsPaid(int roomnumber)
