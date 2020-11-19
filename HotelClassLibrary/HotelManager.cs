@@ -5,14 +5,14 @@ namespace HotelClassLibrary
 {
     public class HotelManager
     {
-        
+
         public Dictionary<int, int> staff = new Dictionary<int, int>();
         public Dictionary<int, int> users = new Dictionary<int, int>();
         List<Booking> bookingsList = new List<Booking>();
         List<Room> allRoomsList = new List<Room>();
         List<Room> availableRoomsList = new List<Room>();
         List<Guest> guestList = new List<Guest>();
-        
+
         private int bookingCounter = 0;
 
         public void BookRoom(int roomId, int guestId)
@@ -44,9 +44,9 @@ namespace HotelClassLibrary
             }
         }
 
-        public string CheckoutGuest (int roomNumber)
+        public string CheckoutGuest(int roomNumber)
         {
-            
+
             string paymentNotice = "";
             foreach (Booking booking in bookingsList)
             {
@@ -67,7 +67,7 @@ namespace HotelClassLibrary
             return paymentNotice;
         }
 
-        public bool PayRoom(int roomNumber, int guestId, int creditcard)
+        private bool PayRoom(int roomNumber, int guestId, int creditcard)
         {
             bool roomPaid = false;
 
@@ -86,32 +86,35 @@ namespace HotelClassLibrary
                         }
                     }
                 }
-            }            
+            }
             return roomPaid;
         }
 
-        public bool CheckIfRoomIsPaid(int roomnumber)
+        public Booking GetGuestBooking(int bookingId)
         {
-            //if (?? == true)
-            //{
-            //    return true;
-            //}
-            //return false;
-            return true;
-        }
+            Booking guestBooking = new Booking();
 
+            foreach (Booking booking in bookingsList)
+            {
+                if (booking.BookingId == bookingId)
+                {
+                    guestBooking = booking;
+                }
+            }
+            return guestBooking;
+        }
 
 
         public void AddNewRoom(int roomNumber, int squareMeters, int numberOfBeds, int pricePerNight)
         {
             Room newRoom = new Room(roomNumber, squareMeters, numberOfBeds, pricePerNight);
 
-            
+
             allRoomsList.Add(newRoom);
 
         }
 
-        
+
 
 
         public string ViewAllRooms()
