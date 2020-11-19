@@ -128,7 +128,7 @@ namespace HotelClassLibrary
             return roomDescriptions;
         }
 
-        public List<Room> CreateListOfAvailableRooms(int numberOfBeds)
+        public List<Room> AddToListOfAvailableRooms(int numberOfBeds)
         {
             availableRoomsList.Clear();
 
