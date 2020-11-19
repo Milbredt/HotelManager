@@ -139,10 +139,13 @@ namespace HotelClassLibrary
                     availableRoomsList.Add(room);
                 }
             }
-
-
             return availableRoomsList;
         }
 
+        public enum PaymentNotice
+        {
+            Paid = 0,
+            NotPaid = 1
+        }
     }
 }

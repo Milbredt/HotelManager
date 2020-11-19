@@ -122,6 +122,10 @@ namespace ProgramUI
                             {
                                 case ConsoleKey.D1:
                                     TryLogin();
+
+                                    //se bokning
+                                    //se avalible rooms - 
+                                    
                                     //Choice for logged in guests?
                                     //if true // boka rummet
                                     //setroom booked
@@ -134,6 +138,12 @@ namespace ProgramUI
 
                                     Console.Write("Firstname: ");
                                     string firstName = Console.ReadLine();
+                                    if (firstName is null)
+                                    {
+                                        Console.WriteLine("You must fill in something");
+                                        Console.WriteLine("Press any key to do another try");
+                                        Console.ReadKey();
+                                    }
                                     // if kan inte vara noll
                                     Console.Write("Lastname: ");
                                     string lastName = Console.ReadLine();
@@ -432,9 +442,12 @@ namespace ProgramUI
                 hotelManager.AddNewRoom(402, 21, 2, 4333);
                 hotelManager.AddNewRoom(501, 20, 2, 2333);
                 hotelManager.AddNewRoom(502, 20, 1, 2133);
-
             }
 
+            void CheckUserInput(string input)
+            {
+                
+            }
         }
     }
 }
