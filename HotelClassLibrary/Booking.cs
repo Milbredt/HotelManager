@@ -1,6 +1,6 @@
 namespace HotelClassLibrary
 {
-    class Booking
+    public class Booking
     {
         
         public int BookingId { get; set;}
@@ -14,6 +14,11 @@ namespace HotelClassLibrary
             RoomNumber = roomId;
             GuestId = guestId;
             IsPaid = false;
+        }
+
+        public Booking()
+        {
+
         }
     }
 }
