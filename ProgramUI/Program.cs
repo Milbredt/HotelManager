@@ -9,6 +9,7 @@ namespace ProgramUI
         static void Main(string[] args)
         {
             bool isUserValid;
+            bool isFieldNull = true;
             int loginTry = 1;
 
             HotelManager hotelManager = new HotelManager();
@@ -98,13 +99,29 @@ namespace ProgramUI
                             Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
                             int numberOfBeds = Convert.ToInt16(Console.ReadLine());
 
-                            string rooms = PrintAvailableRooms(numberOfBeds); // SKRIVS EJ UT. VAD FEL???????????????????????????????????????????
+                            string rooms = PrintAvailableRooms(numberOfBeds);
                             Console.WriteLine(rooms);
+                            System.Console.WriteLine("push any button to continue");
+                            Console.ReadKey();
+                            var bookingmenychoice = Console.ReadKey();
+
+                            switch (bookingmenychoice.Key)
+                            {
+                                case ConsoleKey.D1:
+                                    break;
+
+                                case ConsoleKey.D2:
+                                    break;
+
+
+                                default:
+                                    break;
+                            }
 
                             //ändra bäddar
                             //avsluta
                             //boka ett rum
-                            Console.WriteLine("Wich room do you want to book?");
+
                             Console.Write("Choose the number of the room you want to book : ");
                             int numberOfRooms = Convert.ToInt16(Console.ReadLine());
                             //Metod reservation av rum 
@@ -114,7 +131,9 @@ namespace ProgramUI
 
                         case ConsoleKey.D2:
                             // LOGIN
+                            Console.Clear();
                             Console.WriteLine("[1] - Login \n[2] - Create new account");
+                            Console.Write("Choice");
 
                             var logInChoice = Console.ReadKey();
 
@@ -125,29 +144,29 @@ namespace ProgramUI
 
                                     //se bokning
                                     //se avalible rooms - 
-                                    
+
                                     //Choice for logged in guests?
                                     //if true // boka rummet
                                     //setroom booked
 
                                     break;
                                 case ConsoleKey.D2:
+                                    string firstName;
+                                    string lastName;
                                     //userAuthentication.AddGuestUser();
                                     Console.WriteLine("CREATE NEW HOTEL USER");
 
-
-                                    Console.Write("Firstname: ");
-                                    string firstName = Console.ReadLine();
-                                    if (firstName is null)
+                                    do
                                     {
-                                        Console.WriteLine("You must fill in something");
-                                        Console.WriteLine("Press any key to do another try");
-                                        Console.ReadKey();
-                                    }
+                                        Console.Write("Firstname: ");
+                                        firstName = Console.ReadLine();
+                                        CheckUserInput(firstName, isFieldNull);
+                                    } while (isFieldNull == true);
+
                                     // if kan inte vara noll
                                     Console.Write("Lastname: ");
-                                    string lastName = Console.ReadLine();
-                                    string user = "Guest"; //// GÖR OM GÖR SNYGG
+                                    lastName = Console.ReadLine();
+                                    string user = "Guest"; //// GÖR OM GÖR SNYGG. ENUM??????????????????
                                     CreateAccount(firstName, lastName, user);
 
                                     //meny:
@@ -444,9 +463,15 @@ namespace ProgramUI
                 hotelManager.AddNewRoom(502, 20, 1, 2133);
             }
 
-            void CheckUserInput(string input)
+            void CheckUserInput(string input, bool isFieldNull)
             {
-                
+                if (input is null)
+                {
+                    Console.WriteLine("You must fill in something");
+                    Console.WriteLine("Press any key to do another try");
+                    isFieldNull = false;
+                    Console.ReadKey();
+                }
             }
         }
     }
