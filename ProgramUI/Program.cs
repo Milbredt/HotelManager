@@ -12,7 +12,7 @@ namespace ProgramUI
             int loginTry = 1;
 
             HotelManager hotelManager = new HotelManager();
-            hotelManager.AddRoom();
+            AddRoom();
             UserAuthentication userAuthentication = new UserAuthentication();
             userAuthentication.AddStaffUser("username", "password", "firstname", "lastname");
 
@@ -418,6 +418,21 @@ namespace ProgramUI
                     index++;
                 }
                 return printAvailableRooms;
+            }
+
+            void AddRoom()
+            {
+                hotelManager.AddNewRoom(101, 65, 4, 2233);
+                hotelManager.AddNewRoom(102, 63, 3, 1933);
+                hotelManager.AddNewRoom(103, 62, 4, 2133);
+                hotelManager.AddNewRoom(201, 45, 3, 3233);
+                hotelManager.AddNewRoom(202, 67, 2, 2233);
+                hotelManager.AddNewRoom(203, 17, 2, 3233);
+                hotelManager.AddNewRoom(401, 14, 1, 2233);
+                hotelManager.AddNewRoom(402, 21, 2, 4333);
+                hotelManager.AddNewRoom(501, 20, 2, 2333);
+                hotelManager.AddNewRoom(502, 20, 1, 2133);
+
             }
 
         }
