@@ -434,7 +434,7 @@ namespace ProgramUI
             string PrintAvailableRooms(int numberOfBeds)
             {
                 string printAvailableRooms = "";
-                List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfBeds);
+                List<Room> availableRooms = hotelManager.AddToListOfAvailableRooms(numberOfBeds);
 
                 int index = 1;
 
