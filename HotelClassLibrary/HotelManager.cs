@@ -163,9 +163,13 @@ namespace HotelClassLibrary
                 }
             }
 
-
             return availableRooms;
         }
 
+        public enum PaymentNotice
+        {
+            Paid = 0,
+            NotPaid = 1
+        }
     }
 }
