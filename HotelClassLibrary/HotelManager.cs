@@ -155,11 +155,11 @@ namespace HotelClassLibrary
         {
             availableRooms.Clear();
 
-            foreach (KeyValuePair<int, Room> room in rooms)
+            foreach (Room room in roomList)
             {
-                if (room.Value.IsBooked == false && room.Value.NumberOfBeds == numberOfBeds)
+                if (room.IsBooked == false && room.NumberOfBeds == numberOfBeds)
                 {
-                    availableRooms.Add(room.Value);
+                    availableRooms.Add(room);
                 }
             }
 
