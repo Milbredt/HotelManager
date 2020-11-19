@@ -409,9 +409,9 @@ namespace ProgramUI
 
                 int index = 1;
 
-                for (int i = 1; i < availableRooms.Count + 1; i++)
+                for (int i = 0; i < availableRooms.Count; i++)
                 {
-                    printAvailableRooms += "Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
+                    printAvailableRooms += index + ". Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
                         "Square meters: " + availableRooms[i].SquareMeters + "\n" +
                         "Price per night: " + availableRooms[i].PricePerNight + "\n";
 
