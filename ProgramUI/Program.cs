@@ -96,10 +96,9 @@ namespace ProgramUI
                             //Book room
 
                             Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
-                            int numberOfPersons = Convert.ToInt16(Console.ReadLine());
-                            List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfPersons);
+                            int numberOfBeds = Convert.ToInt16(Console.ReadLine());
 
-                            string rooms = PrintAvailableRooms(availableRooms); // SKRIVS EJ UT. VAD FEL???????????????????????????????????????????
+                            string rooms = PrintAvailableRooms(numberOfBeds); // SKRIVS EJ UT. VAD FEL???????????????????????????????????????????
                             Console.WriteLine(rooms);
 
                             //ändra bäddar
