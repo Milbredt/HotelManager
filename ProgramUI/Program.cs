@@ -13,7 +13,7 @@ namespace ProgramUI
             int loginTry = 1;
 
             HotelManager hotelManager = new HotelManager();
-            hotelManager.AddRoom();
+            AddRoom();
             UserAuthentication userAuthentication = new UserAuthentication();
             userAuthentication.AddStaffUser("username", "password", "firstname", "lastname");
             userAuthentication.AddGuestUser("Kalle","Johansson","guestuser","password", "Kalle@gmail.com",0703556585,"Göstasväg 2",50762, "Borås",5960660045456500);
@@ -240,7 +240,7 @@ namespace ProgramUI
 
                             System.Console.Write("Check out room number :");
                             roomNumber = Convert.ToInt16(Console.ReadLine());
-                            hotelManager.CheckIfRoomIsPaid(roomNumber);
+                            hotelManager.CheckIfRoomIsPaid(roomNumber); //// TA BORT HÅRD KOD. LÄGG TILL GUEST ID
 
                             // är det betalt så isbooked = false
                             //är den inte - dras på kortet
@@ -454,22 +454,37 @@ namespace ProgramUI
             string PrintAvailableRooms(int numberOfBeds)
             {
                 string printAvailableRooms = "";
-                List<Room> availableRooms = hotelManager.CreateListOfAvailableRooms(numberOfBeds);
+                List<Room> availableRooms = hotelManager.AddToListOfAvailableRooms(numberOfBeds);
 
                 int index = 1;
 
                 for (int i = 0; i < availableRooms.Count; i++)
                 {
-                    printAvailableRooms += index + ". Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
+                    printAvailableRooms += "[" + index + "] Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
                         "Square meters: " + availableRooms[i].SquareMeters + "\n" +
-                        "Price per night: " + availableRooms[i].PricePerNight + "\n";
+                        "Price per night: " + availableRooms[i].PricePerNight + "\n\n";
 
                     index++;
                 }
                 return printAvailableRooms;
+            }    
+
+            void AddRoom()
+            {
+                hotelManager.AddNewRoom(101, 65, 4, 2233);
+                hotelManager.AddNewRoom(102, 63, 3, 1933);
+                hotelManager.AddNewRoom(103, 62, 4, 2133);
+                hotelManager.AddNewRoom(201, 45, 3, 3233);
+                hotelManager.AddNewRoom(202, 67, 2, 2233);
+                hotelManager.AddNewRoom(203, 17, 2, 3233);
+                hotelManager.AddNewRoom(401, 14, 1, 2233);
+                hotelManager.AddNewRoom(402, 21, 2, 4333);
+                hotelManager.AddNewRoom(501, 20, 2, 2333);
+                hotelManager.AddNewRoom(502, 20, 1, 2133);
             }
 
             void CheckUserInput(string input)
+ 
             {
                 if (input.Length < 1)
                 {
@@ -480,7 +495,6 @@ namespace ProgramUI
                 }
 
             }
-
         }
     }
 }
