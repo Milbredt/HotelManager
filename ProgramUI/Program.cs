@@ -8,14 +8,15 @@ namespace ProgramUI
     {
         static void Main(string[] args)
         {
-            bool isUserValid;
-            bool isFieldNull = true;
+            bool isGuestUserValid;
+            bool isStaffUserValid;
             int loginTry = 1;
 
             HotelManager hotelManager = new HotelManager();
             hotelManager.AddRoom();
             UserAuthentication userAuthentication = new UserAuthentication();
             userAuthentication.AddStaffUser("username", "password", "firstname", "lastname");
+            userAuthentication.AddGuestUser("Kalle","Johansson","guestuser","password", "Kalle@gmail.com",0703556585,"Göstasväg 2",50762, "Borås",5960660045456500);
 
             while (true)
             {
@@ -95,36 +96,44 @@ namespace ProgramUI
                     {
                         case ConsoleKey.D1:
                             //Book room
-
-                            Console.Write("We have rooms for 1-6 persons. For how many persons in the room? : ");
+                            Console.Clear();
+                            Console.Write("We have rooms for 1-6 persons. \nFor how many persons in the room? : ");
                             int numberOfBeds = Convert.ToInt16(Console.ReadLine());
 
                             string rooms = PrintAvailableRooms(numberOfBeds);
                             Console.WriteLine(rooms);
-                            System.Console.WriteLine("push any button to continue");
-                            Console.ReadKey();
+
+                            System.Console.WriteLine("[1] - Book a room\n[2] - Change number of beds\n[3] - Log out and return to homepage");
                             var bookingmenychoice = Console.ReadKey();
 
                             switch (bookingmenychoice.Key)
                             {
                                 case ConsoleKey.D1:
+                                    System.Console.WriteLine("Book room");
                                     break;
 
                                 case ConsoleKey.D2:
+                                    System.Console.WriteLine("Change number of beds");
+                                    int newInputOfNumberOfBeds = Convert.ToInt16(Console.ReadLine());
+                                    numberOfBeds = newInputOfNumberOfBeds;
                                     break;
 
+                                case ConsoleKey.D3:
+                                    System.Console.WriteLine("Logging out");
+                                    System.Console.WriteLine("returning to the homepage...");
+                                    break;
 
                                 default:
                                     break;
                             }
 
-                            //ändra bäddar
-                            //avsluta
-                            //boka ett rum
-
                             Console.Write("Choose the number of the room you want to book : ");
-                            int numberOfRooms = Convert.ToInt16(Console.ReadLine());
+                            int numberOfRoom = Convert.ToInt16(Console.ReadLine());
                             //Metod reservation av rum 
+                            TryLogin();
+                            hotelManager.BookRoom(numberOfRoom, 3); //// TA BORT HÅRD KOD. LÄGG TILL GUEST ID
+
+                            //bookroom
 
 
                             break;
@@ -140,6 +149,8 @@ namespace ProgramUI
                             switch (logInChoice.Key)
                             {
                                 case ConsoleKey.D1:
+                                Console.Clear();
+                                Console.WriteLine("Type in your login details");
                                     TryLogin();
 
                                     //se bokning
@@ -160,12 +171,19 @@ namespace ProgramUI
                                     {
                                         Console.Write("Firstname: ");
                                         firstName = Console.ReadLine();
-                                        CheckUserInput(firstName, isFieldNull);
-                                    } while (isFieldNull == true);
+                                        CheckUserInput(firstName);
+
+                                    } while (firstName.Length < 1);
 
                                     // if kan inte vara noll
-                                    Console.Write("Lastname: ");
-                                    lastName = Console.ReadLine();
+                                    do
+                                    {
+                                        Console.Write("Lastname: ");
+                                        lastName = Console.ReadLine();
+                                        CheckUserInput(lastName);
+
+                                    } while (lastName.Length < 1);
+
                                     string user = "Guest"; //// GÖR OM GÖR SNYGG. ENUM??????????????????
                                     CreateAccount(firstName, lastName, user);
 
@@ -325,10 +343,10 @@ namespace ProgramUI
                     password = Console.ReadLine();
                     userAuthentication.TryValidateGuestUser(userName, password);
                     userAuthentication.TryValidateStaffUser(userName, password);
-                    isUserValid = userAuthentication.TryValidateGuestUser(userName, password);
-                    isUserValid = userAuthentication.TryValidateStaffUser(userName, password);
+                    isGuestUserValid = userAuthentication.TryValidateGuestUser(userName, password);
+                    isStaffUserValid = userAuthentication.TryValidateStaffUser(userName, password);
 
-                    if (isUserValid == true)
+                    if (isGuestUserValid == true || isStaffUserValid)
                     {
                         Console.WriteLine("Login succeded");
                         loginTry = 0;
@@ -346,6 +364,7 @@ namespace ProgramUI
                     Console.WriteLine("Number of tries overriden");
                     ExitProgram();
                 }
+                
             }
 
 
@@ -368,6 +387,7 @@ namespace ProgramUI
                         if (userName.Length < 6 || userName.Length > 16)
                         {
                             Console.WriteLine("Username must contain 6 to 16 characters");
+                            Console.Write("Press any key to do another try");
                             Console.ReadKey();
                         }
 
@@ -378,7 +398,7 @@ namespace ProgramUI
                             Console.ReadKey();
                         }
 
-                    } while (userName.Length < 6 || userName.Length > 16 && isUserExisting == true);
+                    } while (userName.Length < 6 || userName.Length > 16 || isUserExisting == true);
 
                     do
                     {
@@ -422,8 +442,8 @@ namespace ProgramUI
                 Console.Write("City: ");
                 string city = Console.ReadLine();
                 Console.Write("Creditcard number: ");
-                int creditCardNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                string output = userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
+                long creditCardNumber = Convert.ToInt64(Console.ReadLine()); //TRY CATCH
+                var output = userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
                 Console.WriteLine(output);
             }
 
@@ -449,15 +469,16 @@ namespace ProgramUI
                 return printAvailableRooms;
             }
 
-            void CheckUserInput(string input, bool isFieldNull)
+            void CheckUserInput(string input)
             {
-                if (input is null)
+                if (input.Length < 1)
                 {
                     Console.WriteLine("You must fill in something");
                     Console.WriteLine("Press any key to do another try");
-                    isFieldNull = false;
                     Console.ReadKey();
+
                 }
+
             }
 
         }

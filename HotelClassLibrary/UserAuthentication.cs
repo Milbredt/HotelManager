@@ -10,13 +10,13 @@ namespace HotelClassLibrary
         Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest>();
         Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
 
-        public string AddGuestUser(string firstName, string lastName, string userName, string password, string email, int phoneNumber, string streetAddress, int postalCode, string city, int creditCardNumber) // HA KVAR AddStaffUser
+        public Guest AddGuestUser(string firstName, string lastName, string userName, string password, string email, int phoneNumber, string streetAddress, int postalCode, string city, long creditCardNumber) // HA KVAR AddStaffUser
         {
             guestIdCount++;
             
             Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
             dictionaryOfGuest.Add(guestIdCount, newGuestUser);
-            return $"Adding this guest user suceeded! \n\nUsername: {userName} \nPassword: {password} \nGuest id: {guestIdCount}";
+            return newGuestUser;
         }
 
         public string AddStaffUser(string userName, string password, string firstName, string lastName)
