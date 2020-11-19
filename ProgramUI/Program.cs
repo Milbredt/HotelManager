@@ -440,9 +440,9 @@ namespace ProgramUI
 
                 for (int i = 0; i < availableRooms.Count; i++)
                 {
-                    printAvailableRooms += index + ". Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
+                    printAvailableRooms += "[" + index + "] Number of beds: " + availableRooms[i].NumberOfBeds + "\n" +
                         "Square meters: " + availableRooms[i].SquareMeters + "\n" +
-                        "Price per night: " + availableRooms[i].PricePerNight + "\n";
+                        "Price per night: " + availableRooms[i].PricePerNight + "\n\n";
 
                     index++;
                 }
