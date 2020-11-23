@@ -14,11 +14,13 @@ namespace HotelClassLibrary
         {
             guestIdCount++;
             
-            Guest newGuestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
-            dictionaryOfGuest.Add(guestIdCount, newGuestUser);
-            return newGuestUser;
+            Guest guestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
+            Guest guestUser2 = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
+            dictionaryOfGuest.Add(guestIdCount, guestUser);
+            Guest newGuestUser = guestUser;
+            System.Console.WriteLine(newGuestUser.FirstName);
+            return guestUser2;
         }
-
         public string AddStaffUser(string userName, string password, string firstName, string lastName)
         {
             staffIdCount++;
@@ -26,6 +28,7 @@ namespace HotelClassLibrary
             Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffIdCount);
             dictionaryOfStaff.Add(staffIdCount, newStaffUser);
             return $"Adding this staff user suceeded! \n\nUsername: {userName} \nPassword: {password} \nStaff id: {staffIdCount}";
+            
         }
 
         public bool CheckIfUsernameExist(string userName)

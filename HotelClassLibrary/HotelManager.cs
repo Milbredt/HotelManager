@@ -5,13 +5,9 @@ namespace HotelClassLibrary
 {
     public class HotelManager
     {
-
-        public Dictionary<int, int> staff = new Dictionary<int, int>();
-        public Dictionary<int, int> users = new Dictionary<int, int>();
         List<Booking> bookingsList = new List<Booking>();
         List<Room> allRoomsList = new List<Room>();
         List<Room> availableRoomsList = new List<Room>();
-        List<Guest> guestList = new List<Guest>();
 
         private int bookingCounter = 0;
 
