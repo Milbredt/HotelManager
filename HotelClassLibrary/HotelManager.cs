@@ -11,8 +11,13 @@ namespace HotelClassLibrary
 
         private int bookingCounter = 0;
 
-        public void BookRoom(int roomId, int guestId)
+        public void BookRoom(int roomIndexNumber, int guestId)
         {
+            int roomId = 0;
+            for (int i = roomIndexNumber - 1; i < availableRoomsList.Count; i++)
+            {
+                roomId = availableRoomsList[i].RoomNumber;
+            }
             Booking newBooking = new Booking(bookingCounter + 1, roomId, guestId);
 
             SetRoomBooked(roomId);
@@ -43,7 +48,7 @@ namespace HotelClassLibrary
         public PaymentNotice CheckoutGuest(int roomNumber)
         {
             PaymentNotice paymentNotice = PaymentNotice.NotPaid;
-            
+
             foreach (Booking booking in bookingsList)
             {
                 if (roomNumber == booking.RoomNumber)
@@ -53,7 +58,7 @@ namespace HotelClassLibrary
                     if (booking.IsPaid == true)
                     {
                         paymentNotice = PaymentNotice.Paid;
-                    }     
+                    }
                 }
             }
             return paymentNotice;
@@ -121,7 +126,7 @@ namespace HotelClassLibrary
                 {
                     availableRoomsList.Add(room);
                 }
-            }         
+            }
             return availableRoomsList;
         }
 
@@ -139,12 +144,27 @@ namespace HotelClassLibrary
             return availableRoomsList;
         }
 
-    
+        public Booking ViewBookedRoom(int guestId)
+        {
+            Booking newBooking = new Booking();
+
+            foreach (Booking booking in bookingsList)
+            {
+                if (booking.GuestId == guestId)
+                {
+                    newBooking = new Booking(booking.BookingId, booking.RoomNumber, booking.GuestId);
+                    return newBooking;
+                }
+            }
+            return newBooking;
+        }
+
+
 
     }
-        public enum PaymentNotice
-        {
-            Paid = 0,
-            NotPaid = 1
-        }
+    public enum PaymentNotice
+    {
+        Paid = 0,
+        NotPaid = 1
+    }
 }
