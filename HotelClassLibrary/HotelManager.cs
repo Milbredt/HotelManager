@@ -44,10 +44,10 @@ namespace HotelClassLibrary
             }
         }
 
-        public string CheckoutGuest(int roomNumber)
+        public PaymentNotice CheckoutGuest(int roomNumber)
         {
-
-            string paymentNotice = "";
+            PaymentNotice paymentNotice = PaymentNotice.NotPaid;
+            
             foreach (Booking booking in bookingsList)
             {
                 if (roomNumber == booking.RoomNumber)
@@ -56,12 +56,8 @@ namespace HotelClassLibrary
 
                     if (booking.IsPaid == true)
                     {
-                        return paymentNotice = "Your stay has already been paid. Thank you and welcome back!";
-                    }
-                    else
-                    {
-                        return paymentNotice = "The fee will be charged from your creditcard. Thank you and welcome back";
-                    }
+                        paymentNotice = PaymentNotice.Paid;
+                    }     
                 }
             }
             return paymentNotice;
@@ -141,7 +137,7 @@ namespace HotelClassLibrary
                 {
                     availableRoomsList.Add(room);
                 }
-            }
+            }         
             return availableRoomsList;
         }
 
@@ -150,5 +146,7 @@ namespace HotelClassLibrary
             Paid = 0,
             NotPaid = 1
         }
+    
+
     }
 }
