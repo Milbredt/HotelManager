@@ -63,27 +63,15 @@ namespace HotelClassLibrary
             return paymentNotice;
         }
 
-        private bool PayRoom(int roomNumber, int guestId, int creditcard)
+        public void PayRoom(int roomNumber)
         {
-            bool roomPaid = false;
-
             foreach (Booking booking in bookingsList)
             {
-                if (booking.RoomNumber == roomNumber && booking.GuestId == guestId)
+                if (booking.RoomNumber == roomNumber)
                 {
-                    foreach (Guest guest in guestList)
-                    {
-                        if (guest.CreditCardNumber == creditcard && guest.GuestId == booking.GuestId)
-                        {
-                            if (booking.IsPaid == true)
-                            {
-                                roomPaid = true;
-                            }
-                        }
-                    }
+                    booking.IsPaid = true;
                 }
             }
-            return roomPaid;
         }
 
         public Booking GetGuestBooking(int bookingId)
@@ -141,12 +129,12 @@ namespace HotelClassLibrary
             return availableRoomsList;
         }
 
+    
+
+    }
         public enum PaymentNotice
         {
             Paid = 0,
             NotPaid = 1
         }
-    
-
-    }
 }
