@@ -17,8 +17,8 @@ namespace HotelClassLibrary
             Guest guestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
             Guest guestUser2 = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
             dictionaryOfGuest.Add(guestIdCount, guestUser);
-            Guest newGuestUser = guestUser;
-            System.Console.WriteLine(newGuestUser.FirstName);
+            
+            
             return guestUser2;
         }
         public string AddStaffUser(string userName, string password, string firstName, string lastName)

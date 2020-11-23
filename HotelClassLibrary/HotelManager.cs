@@ -125,6 +125,20 @@ namespace HotelClassLibrary
             return availableRoomsList;
         }
 
+        public List<Room> AddToListOfAvailableRooms()
+        {
+            availableRoomsList.Clear();
+
+            foreach (Room room in allRoomsList)
+            {
+                if (room.IsBooked == false)
+                {
+                    availableRoomsList.Add(room);
+                }
+            }
+            return availableRoomsList;
+        }
+
     
 
     }
