@@ -178,6 +178,21 @@ namespace HotelClassLibrary
             }
             return booked;
         }
+
+        public bool CheckIfRoomExists(int tryNumber)
+        {
+            bool roomExists = false;
+
+            foreach (Room room in allRoomsList)
+            {
+                if (room.RoomNumber == tryNumber)
+                {
+                    roomExists = true;
+                }
+            }
+            return roomExists;
+        }
+
     }
 
     //PaymentNotice är tänkt att användas i vidare utbyggnad av programmet.

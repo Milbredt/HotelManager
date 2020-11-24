@@ -73,11 +73,7 @@ namespace ProgramUI
                 bool getNumberOfBedsLoop = true;
                 do
                 {
-
                     int numberOfBeds = GetNumberOfBeds();
-
-
-                    //Book room
 
                     Console.Clear();
                     Console.WriteLine("Rooms that are avalible for you\n");
@@ -87,7 +83,7 @@ namespace ProgramUI
                         string rooms = PrintAvailableRooms(numberOfBeds);
                         Console.WriteLine(rooms);
 
-                        Console.WriteLine("[1] - Book a room\n[2] - Change number of beds \n[Esc] - return to main menu\n");
+                        Console.WriteLine("[1] - Book a room\n[2] - Change number of beds \n[Esc] - Return to main menu");
                         Console.Write("Choice: ");
                         bookingMenuChoice = Console.ReadKey();
 
@@ -101,9 +97,9 @@ namespace ProgramUI
 
                                 Console.WriteLine("[1] - Login \n[2] - Create new account");
                                 Console.Write("Choice: ");
-                                ConsoleKeyInfo bla = Console.ReadKey(); //Byt namn på bla!!!!!!!!!!!!!!!!!!!!!!!!
+                                ConsoleKeyInfo inputKey = Console.ReadKey();
 
-                                switch (bla.Key)
+                                switch (inputKey.Key)
                                 {
                                     case ConsoleKey.D1:
                                         TryLogin();
@@ -119,10 +115,10 @@ namespace ProgramUI
                                         break;
 
                                     default:
-                                        System.Console.WriteLine("Wrong input.Make a chioce between [1] or [2]");
+                                        Console.WriteLine("Wrong input.Make a chioce between [1] or [2]");
                                         break;
                                 }
-                                
+
                                 hotelManager.BookRoom(chosenRoomNumber, guestId);
                                 Console.WriteLine("\nYour booking is confirmed!\n");
                                 Console.Write("Press any key to exit");
@@ -139,7 +135,7 @@ namespace ProgramUI
                                 break;
 
                             default:
-                                Console.WriteLine("\nWrong input. You can only press [1], [2] or [Esc]\n");
+                                Console.WriteLine("\nWrong input. You can only press [1], [2] or [Esc]");
                                 Console.Write("Press any key to continue");
                                 Console.ReadKey();
                                 break;
@@ -169,33 +165,8 @@ namespace ProgramUI
                     switch (input.Key)
                     {
                         case ConsoleKey.D1:
-                            //checkout
-                            int roomNumber;
-                            Console.Clear();
 
-                            do
-                            {
-                                Console.Write("Check out room number :");
-                                roomNumber = Convert.ToInt32(Console.ReadLine()); // felhantering!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                                bool isBooked = hotelManager.IsBooked(roomNumber);
-
-                                if (isBooked == true)
-                                {
-                                    PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumber);
-                                    Console.WriteLine("\nDo not forget to charge the creditcard.\n");
-                                    //hotelManager.PayRoom(roomNumber);
-                                    Console.WriteLine($"Room {roomNumber} is now avalible!");
-                                    Console.Write("Press any key to continue the check out");
-                                    Console.ReadKey();
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("The room number you entered isn't booked!");
-                                }
-
-                            } while (true);
-
+                            StaffCheckOut();
                             break;
 
                         case ConsoleKey.D2:
@@ -227,24 +198,12 @@ namespace ProgramUI
                         case ConsoleKey.D5:
                             //add new room
                             Console.Clear();
-                            int squareMeters;
-                            int numberOfBeds;
-                            int pricePerNight;
+                            SetRoomDetails();
 
-                            Console.WriteLine("Add a new room to the hotel\n");
                             //FELHANTERING
 
-                            Console.WriteLine("Room number: ");
-                            roomNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                            Console.WriteLine("Square meters: ");
-                            squareMeters = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                            Console.WriteLine("Number of beds: ");
-                            numberOfBeds = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                            Console.WriteLine("Price per night: ");
-                            pricePerNight = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                            hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
-                            Console.Write("\nRoom added successfully\nPress any key to continue");
-                            Console.ReadKey();
+                            //TRY CATCH
+
                             break;
 
                         case ConsoleKey.D6:
@@ -290,7 +249,7 @@ namespace ProgramUI
 
                     if (isGuestUserValid == true || isStaffUserValid == true)
                     {
-                        Console.WriteLine("Login succeded");
+                        Console.Write("Login succeded");
                         Thread.Sleep(1500);
                         loginTry = 0;
                         break;
@@ -314,13 +273,12 @@ namespace ProgramUI
             void CreateAccount(string firstName, string lastName, ConsoleKeyInfo guestOrStaff)
             {
                 bool isUserExisting = false;
+                string password;
+                string userName;
+
                 do
                 {
-                    string password;
-                    string userName;
-
                     userName = GetUserName();
-
                     password = GetPassword();
 
                     if (guestOrStaff.Key == ConsoleKey.D2)
@@ -526,7 +484,9 @@ namespace ProgramUI
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                     }
+
                 } while (true);
+
                 return numberOfBeds;
             }
 
@@ -561,9 +521,240 @@ namespace ProgramUI
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                     }
+
                 } while (true);
 
                 return roomChoice;
+            }
+
+            void StaffCheckOut()
+            {
+                int roomNumberToCheckOut = 0;
+                bool isBooked = hotelManager.IsBooked(roomNumberToCheckOut);
+
+                do
+                {
+                    try
+                    {
+                        roomNumberToCheckOut = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        System.Console.WriteLine("Wrong input. ");
+                    }
+
+                    if (isBooked == true)
+                    {
+                        PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumberToCheckOut);
+                        Console.WriteLine("\nDo not forget to charge the creditcard.\n");
+                        //hotelManager.PayRoom(roomNumber);
+                        Console.WriteLine($"Room {roomNumberToCheckOut} is now avalible!");
+                        Console.Write("Press any key to continue the check out");
+                        Console.ReadKey();
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("The room number you entered isn't booked!");
+                    }
+
+                } while (true);
+
+                //return roomNumberToCheckOut; //METOD ÄR VOID!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            }
+
+            void SetRoomDetails()
+            {
+                Console.WriteLine("Add a new room to the hotel\n");
+
+                int roomNumber = SetRoomNumber();
+
+
+                int squareMeters = SetSquareMeters();
+
+
+                int numberOfBeds = SetNumberOfBeds();
+
+
+                int pricePerNight = SetPricePerNight();
+
+                hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
+                Console.Write("\nRoom successfully added\nPress any key to continue");
+                Console.ReadKey();
+            }
+
+            int SetRoomNumber()
+            {
+                bool roomExists = false;
+                int roomNumber = 0;
+                do
+                {
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Room number: ");
+                        try
+                        {
+                            roomNumber = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        }
+                        catch
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+                    } while (true);
+
+                    roomExists = hotelManager.CheckIfRoomExists(roomNumber);
+
+                    if (roomExists == true)
+                    {
+                        Console.WriteLine("The room number you have chosen already exists.\nPlease choose another.\n");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else if (roomNumber <= 0)
+                    {
+                        Console.WriteLine("You must choose a number above 0.\n");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (roomNumber <= 0 || roomExists == true);
+
+                return roomNumber;
+            }
+
+            int SetSquareMeters()
+            {
+                int squareMeters = 0;
+
+                do
+                {
+                    bool sqmLoop = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Square meters: ");
+                        try
+                        {
+                            squareMeters = Convert.ToInt32(Console.ReadLine());
+                            sqmLoop = false;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+                    } while (sqmLoop);
+
+                    if (squareMeters < 10 || squareMeters > 100)
+                    {
+                        Console.WriteLine("You can only type in numbers between 10 and 100\n");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (squareMeters < 10 || squareMeters > 100);
+
+                return squareMeters;
+            }
+
+            int SetNumberOfBeds()
+            {
+                int numberOfBeds = 0;
+                do
+                {
+                    bool numberOfBedsLoop = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Number of beds: ");
+                        try
+                        {
+                            numberOfBeds = Convert.ToInt32(Console.ReadLine());
+                            numberOfBedsLoop = false;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+                    } while (numberOfBedsLoop);
+
+                    if (numberOfBeds <= 0)
+                    {
+                        Console.WriteLine("You must choose a number above 0");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else if (numberOfBeds > 6)
+                    {
+                        Console.WriteLine("You must choose a number below 7");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (numberOfBeds < 1);
+
+                return numberOfBeds;
+            }
+
+            int SetPricePerNight()
+            {
+                int pricePerNight = 0;
+                do
+                {
+                    bool setPricePerNightLoop = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Price per night: ");
+                        try
+                        {
+                            pricePerNight = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch
+                        {
+                            Console.Clear();
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+
+                    } while (setPricePerNightLoop);
+
+                    if (pricePerNight < 1)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You must set a price above 0");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (pricePerNight < 1);
+
+                return pricePerNight;
             }
         }
     }
