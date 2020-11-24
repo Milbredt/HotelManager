@@ -4,7 +4,7 @@ namespace HotelClassLibrary
     
     {
 
-        public Guest (string firstName, string lastName, string userName, string password, int guestId, string email, int phonenumber, string streetaddress, int postalcode, string city, long creditCardNumber) 
+        public Guest (string firstName, string lastName, string userName, string password, int guestId, string email, long phonenumber, string streetaddress, int postalcode, string city, long creditCardNumber) 
         : base (firstName, lastName, userName, password)
         {
             this.GuestId = guestId;
@@ -18,7 +18,7 @@ namespace HotelClassLibrary
 
         public int GuestId { get; set; }
         public string Email { get; set; }
-        public int PhoneNumber { get; set; }
+        public long PhoneNumber { get; set; }
         public string StreetAddress { get; set; }
         public int PostalCode { get; set; }
         public string City { get; set; }

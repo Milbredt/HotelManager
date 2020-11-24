@@ -10,15 +10,13 @@ namespace HotelClassLibrary
         Dictionary<int, Guest> dictionaryOfGuest = new Dictionary<int, Guest>();
         Dictionary<int, Staff> dictionaryOfStaff = new Dictionary<int, Staff>();
 
-        public Guest AddGuestUser(string firstName, string lastName, string userName, string password, string email, int phoneNumber, string streetAddress, int postalCode, string city, long creditCardNumber) // HA KVAR AddStaffUser
+        public Guest AddGuestUser(string firstName, string lastName, string userName, string password, string email, long phoneNumber, string streetAddress, int postalCode, string city, long creditCardNumber) // HA KVAR AddStaffUser
         {
             guestIdCount++;
             
             Guest guestUser = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
             Guest guestUser2 = new Guest(firstName, lastName, userName, password, guestIdCount, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
-            dictionaryOfGuest.Add(guestIdCount, guestUser);
-            
-            
+            dictionaryOfGuest.Add(guestIdCount, guestUser);                    
             return guestUser2;
         }
         public string AddStaffUser(string userName, string password, string firstName, string lastName)
@@ -27,8 +25,7 @@ namespace HotelClassLibrary
 
             Staff newStaffUser = new Staff(firstName, lastName, userName, password, staffIdCount);
             dictionaryOfStaff.Add(staffIdCount, newStaffUser);
-            return $"Adding this staff user suceeded! \n\nUsername: {userName} \nPassword: {password} \nStaff id: {staffIdCount}";
-            
+            return $"Adding this staff user suceeded! \n\nUsername: {userName} \nPassword: {password} \nStaff id: {staffIdCount}";            
         }
 
         public bool CheckIfUsernameExist(string userName)

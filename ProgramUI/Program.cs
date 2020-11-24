@@ -107,7 +107,7 @@ namespace ProgramUI
 
                                     case ConsoleKey.D2:
                                         Console.Clear();
-                                        Console.WriteLine("\nNew user\n");
+                                        Console.WriteLine("New user");
                                         Console.WriteLine("Please, fill in the fields below\n");
                                         SetFirstName();
                                         SetLastName();
@@ -199,11 +199,6 @@ namespace ProgramUI
                             //add new room
                             Console.Clear();
                             SetRoomDetails();
-
-                            //FELHANTERING
-
-                            //TRY CATCH
-
                             break;
 
                         case ConsoleKey.D6:
@@ -300,25 +295,18 @@ namespace ProgramUI
 
             void GetGuestDetails(string firstName, string lastName, string userName, string password)
             {
-                Console.Write("Email: ");
-                string email = Console.ReadLine();
-                Console.Write("Phone number: ");
-                int phoneNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                Console.Write("Street address: ");
-                string streetAddress = Console.ReadLine();
-                Console.Write("Postal code: ");
-                int postalCode = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
-                Console.Write("City: ");
-                string city = Console.ReadLine();
-                Console.Write("Creditcard number: ");
-                long creditCardNumber = Convert.ToInt64(Console.ReadLine()); //TRY CATCH
+                string email = SetEmail();
+                long phoneNumber = SetPhoneNumber();
+                string streetAddress = SetStreetAddress();
+                int postalCode = SetPostalCode();
+                string city = SetCity();
+                long creditCardNumber = SetCreditcardNumber();
 
                 var output = userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
 
                 Console.Clear();
                 Console.WriteLine("New account created!\n");
                 Console.WriteLine($"Your guest id is: {output.GuestId}. \nPlease save your guest id for further use in the booking system.");
-                guestId = output.GuestId; // ÖVERFLÖDIG? KS
             }
 
             // PRINT AVALIBLE ROOMS
@@ -370,15 +358,24 @@ namespace ProgramUI
                 hotelManager.AddNewRoom(502, 20, 1, 2133);
             }
 
-            void CheckUserInput(string input)
-            {
-                if (input.Length < 1)
-                {
-                    Console.WriteLine("You must fill in something");
-                    Console.Write("Press any key to do another try");
-                    Console.ReadKey();
-                }
-            }
+            // void CheckUserInput(string input)
+            // {
+            //     do
+            //     {
+
+            //         if (string.IsNullOrEmpty(input))
+            //         {
+            //             Console.WriteLine("You must fill in something");
+            //             Console.Write("Press any key to do another try");
+            //             Console.ReadKey();
+            //         }
+            //         else
+            //         {
+            //             break;
+            //         }
+            //     } while (true);
+            // }
+        
 
             void SetFirstName()
             {
@@ -386,9 +383,17 @@ namespace ProgramUI
                 {
                     Console.Write("Firstname: ");
                     firstName = Console.ReadLine();//NullOrEmpty.ObjectDisposedException................................
-                    CheckUserInput(firstName);
-
-                } while (firstName.Length < 1);
+                   if (string.IsNullOrEmpty(firstName))
+                   {
+                       Console.WriteLine("You must fill in a firstname");
+                        Console.Write("Press any key to do another try");
+                        Console.ReadKey();
+                   }
+                   else
+                   {
+                       break;
+                   }
+                } while (true);
             }
 
             void SetLastName()
@@ -396,10 +401,18 @@ namespace ProgramUI
                 do
                 {
                     Console.Write("Lastname: ");
-                    lastName = Console.ReadLine();
-                    CheckUserInput(lastName);
-
-                } while (lastName.Length < 1);
+                    lastName = Console.ReadLine();//NullOrEmpty.ObjectDisposedException................................
+                   if (string.IsNullOrEmpty(lastName))
+                   {
+                       Console.WriteLine("You must fill in a lastname");
+                        Console.Write("Press any key to do another try");
+                        Console.ReadKey();
+                   }
+                   else
+                   {
+                       break;
+                   }
+                } while (true);
             }
 
             string GetUserName()
@@ -559,8 +572,6 @@ namespace ProgramUI
                     }
 
                 } while (true);
-
-                //return roomNumberToCheckOut; //METOD ÄR VOID!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
 
             void SetRoomDetails()
@@ -568,14 +579,8 @@ namespace ProgramUI
                 Console.WriteLine("Add a new room to the hotel\n");
 
                 int roomNumber = SetRoomNumber();
-
-
                 int squareMeters = SetSquareMeters();
-
-
                 int numberOfBeds = SetNumberOfBeds();
-
-
                 int pricePerNight = SetPricePerNight();
 
                 hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
@@ -600,7 +605,6 @@ namespace ProgramUI
                         }
                         catch
                         {
-                            Console.Clear();
                             Console.WriteLine("You can only type in numbers");
                             Console.Write("Press any key to continue");
                             Console.ReadKey();
@@ -711,7 +715,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (numberOfBeds < 1);
+                } while (numberOfBeds < 1 || numberOfBeds > 6);
 
                 return numberOfBeds;
             }
@@ -729,10 +733,10 @@ namespace ProgramUI
                         try
                         {
                             pricePerNight = Convert.ToInt32(Console.ReadLine());
+                            setPricePerNightLoop = false;
                         }
                         catch
                         {
-                            Console.Clear();
                             Console.WriteLine("You can only type in numbers");
                             Console.Write("Press any key to continue");
                             Console.ReadKey();
@@ -742,7 +746,6 @@ namespace ProgramUI
 
                     if (pricePerNight < 1)
                     {
-                        Console.Clear();
                         Console.WriteLine("You must set a price above 0");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
@@ -755,6 +758,198 @@ namespace ProgramUI
                 } while (pricePerNight < 1);
 
                 return pricePerNight;
+            }
+
+            string SetEmail()
+            {
+                string email = "";
+
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Email: ");
+                    email = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(email))
+                    {
+                        Console.WriteLine("You must insert something as your email address!");
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (true);
+
+                return email;
+            }
+
+            string SetStreetAddress()
+            {
+                string streetAddress = "";
+
+                do
+                {
+                    Console.Clear();
+                    Console.Write("Street address: ");
+                    streetAddress = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(streetAddress))
+                    {
+                        Console.WriteLine("You must insert something as your street address!");
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (true);
+
+                return streetAddress;
+            }
+
+            string SetCity()
+            {
+                string city = "";
+
+                do
+                {
+                    Console.Clear();
+                    Console.Write("City: ");
+                    city = Console.ReadLine();
+
+                    if (string.IsNullOrEmpty(city))
+                    {
+                        Console.WriteLine("You must insert something as your City!");
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (true);
+
+                return city;
+            }
+
+            long SetPhoneNumber()
+            {
+                long phoneNumber = 0;
+                do
+                {
+                    bool setPhoneNumberLoop = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Phone number: ");
+                        try
+                        {
+                            phoneNumber = Convert.ToInt64(Console.ReadLine());
+                            setPhoneNumberLoop = false;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+
+                    } while (setPhoneNumberLoop);
+
+                    if (phoneNumber < 10000000000 || phoneNumber > 99999999)
+                    {
+                        Console.WriteLine("You must type in a valid phone number");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (phoneNumber < 10000000000 || phoneNumber > 99999999);
+
+                return phoneNumber;
+            }
+
+            int SetPostalCode()
+            {
+                int postalCode = 0;
+                do
+                {
+                    bool setPostalCodeLoop = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Postal code: ");
+                        try
+                        {
+                            postalCode = Convert.ToInt32(Console.ReadLine());
+                            setPostalCodeLoop = false;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+
+                    } while (setPostalCodeLoop);
+
+                    if (postalCode < 10000 || postalCode > 9999)
+                    {
+                        Console.WriteLine("You must type in 5 digit number");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (postalCode < 10000 || postalCode > 9999);
+
+                return postalCode;
+            }
+
+            long SetCreditcardNumber()
+            {
+                long creditcardNumber = 0;
+                do
+                {
+                    bool setcreditCardNumber = true;
+                    do
+                    {
+                        Console.Clear();
+                        Console.Write("Creditcard number: ");
+                        try
+                        {
+                            creditcardNumber = Convert.ToInt64(Console.ReadLine());
+                            setcreditCardNumber = false;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("You can only type in numbers");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
+                        }
+
+                    } while (setcreditCardNumber);
+
+                    if (creditcardNumber < 10000000000000000 || creditcardNumber > 999999999999999)
+                    {
+                        Console.WriteLine("You must type in a valid creditcard number");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                } while (creditcardNumber < 10000000000000000 || creditcardNumber > 999999999999999);
+
+                return creditcardNumber;
             }
         }
     }
