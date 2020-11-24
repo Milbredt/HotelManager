@@ -34,7 +34,7 @@ namespace HotelClassLibrary
             }
         }
 
-        public void SetRoomAvailable(int roomNumber)
+        private void SetRoomAvailable(int roomNumber)
         {
             foreach (Room room in allRoomsList)
             {
@@ -64,6 +64,7 @@ namespace HotelClassLibrary
             return paymentNotice;
         }
 
+        //Planerad att användas i utökad version.
         public void PayRoom(int roomNumber)
         {
             foreach (Booking booking in bookingsList)
@@ -94,14 +95,12 @@ namespace HotelClassLibrary
         {
             Room newRoom = new Room(roomNumber, squareMeters, numberOfBeds, pricePerNight);
 
-
             allRoomsList.Add(newRoom);
-
         }
 
-
-
-
+        //Skicka tillbaka en string, skicka tillbaka listan, eller
+        //göra en helt ny lista som tar satan från första och sedan
+        //returneras?
         public string ViewAllRooms()
         {
             string roomDescriptions = "";
@@ -159,12 +158,28 @@ namespace HotelClassLibrary
             return newBooking;
         }
 
+        public bool IsBooked(int roomNumber)
+        {
+            bool booked = false;
 
-
+            foreach (Room room in allRoomsList)
+            {
+                if (room.RoomNumber == roomNumber)
+                {
+                    if (room.IsBooked == true)
+                    {
+                        booked = true;
+                    }
+                }
+            }
+            return booked;
+        }
     }
+
     public enum PaymentNotice
     {
         Paid = 0,
         NotPaid = 1
     }
+
 }

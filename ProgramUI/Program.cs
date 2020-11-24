@@ -14,18 +14,19 @@ namespace ProgramUI
             string firstName = "";
             string lastName = "";
             int guestId = 0;
+
             ConsoleKeyInfo guestOrStaff;
-
-
             HotelManager hotelManager = new HotelManager();         
-            AddRoom();
             UserAuthentication userAuthentication = new UserAuthentication();
+
+            AddRoom();
             userAuthentication.AddStaffUser("username", "password", "firstname", "lastname");
             userAuthentication.AddGuestUser("Kalle", "Johansson", "guestuser", "password", "Kalle@gmail.com", 0703556585, "Göstasväg 2", 50762, "Borås", 5960660045456500);
-
+            hotelManager.BookRoom(2, 1);
+            
             while (true)
             {
-                Console.WriteLine("Welcome to hotel Push n Pull");
+                Console.WriteLine("\nWelcome to hotel Push n Pull");
                 Console.WriteLine("Make a choice");
                 Console.WriteLine("Press [1]: Guest");
                 Console.WriteLine("Press [2]: Staff");
@@ -46,7 +47,6 @@ namespace ProgramUI
                         Console.WriteLine("\nStaff login");
                         TryLogin();
                         ChoiceForStaff(hotelManager, userAuthentication);
-
                         break;
 
                     case ConsoleKey.Escape:
@@ -72,45 +72,37 @@ namespace ProgramUI
             //CHOISE FOR GUEST
             void ChoiceForGuest(HotelManager hotelManager)
             {
+                ConsoleKeyInfo bookingMenuChoice;
+                            Console.Clear();
+                    Console.WriteLine("Welcome guest");
                 do
                 {
-                    Console.Clear();
-                    Console.WriteLine("Welcome guest");
-                    Console.WriteLine("Make a choice below");
-                    Console.WriteLine("[1] - View our rooms and make a reservation");
-                    
-                    Console.Write("Choice: ");
 
-                    var input = Console.ReadKey();
-
-                    switch (input.Key)
-                    {
-                        case ConsoleKey.D1:
                             //Book room
-                            Console.Clear();
                             Console.Write("We have rooms for 1-6 persons. \nHow many persons? : ");
                             int numberOfBeds = Convert.ToInt16(Console.ReadLine());
-                            Console.WriteLine("Rooms that are avalible for you");
+                            Console.Clear();
+                            Console.WriteLine("Rooms that are avalible for you\n");
 
                             string rooms = PrintAvailableRooms(numberOfBeds);
                             Console.WriteLine(rooms);
 
-                            Console.WriteLine("[1] - Book a room\n[2] - Change number of beds\n[3] - Return to main menu");
+                            Console.WriteLine("[1] - Book a room\n[2] - Change number of beds\n[Esc] - Return to main menu");
                             Console.Write("Choice: ");
-                            var bookingMenuChoice = Console.ReadKey();
+                            bookingMenuChoice = Console.ReadKey();
 
                             switch (bookingMenuChoice.Key)
                             {
                                 case ConsoleKey.D1:
-
-                                    System.Console.WriteLine("\n- Book room -");
+                                    System.Console.WriteLine("\n- Book room -\n");
                                     Console.Write("Wich room do you want to book : ");
                                     int numberOfRoom = Convert.ToInt16(Console.ReadLine());
-                                    Console.WriteLine("Login to continue");
+                                    Console.WriteLine("\nLogin or create a new account to continue\n");
 
                                     Console.WriteLine("[1] - Login \n[2] - Create new account");
-                                    Console.Write("Choice: \n");
+                                    Console.Write("Choice: ");
                                     bookingMenuChoice = Console.ReadKey();
+
                                     if (bookingMenuChoice.Key == ConsoleKey.D1)
                                     {
                                         TryLogin();
@@ -118,38 +110,30 @@ namespace ProgramUI
                                     else if (bookingMenuChoice.Key == ConsoleKey.D2)
                                     {
                                         Console.Clear();
-                                        Console.WriteLine("New user");
-                                        Console.WriteLine("Please, fill in the fields below");
+                                        Console.WriteLine("\nNew user\n");
+                                        Console.WriteLine("Please, fill in the fields below\n");
                                         GetNames(firstName, lastName);
                                         CreateAccount(firstName, lastName, guestOrStaff);
                                     }
 
                                     //felhantering här
-
                                     hotelManager.BookRoom(numberOfRoom, guestId); 
                                     Console.WriteLine("\nYour booking is confirmed!\n");
+                                    Console.Write("Press any key to exit");
+                                    Console.ReadKey();
                                     ExitProgram();
                                     break;
 
                                 case ConsoleKey.D2:
-                                    Console.WriteLine("Change number of beds");
-                                    int newInputOfNumberOfBeds = Convert.ToInt16(Console.ReadLine());
-                                    numberOfBeds = newInputOfNumberOfBeds;
-                                    break;
-
-                                case ConsoleKey.D3:
-                                    System.Console.WriteLine("Returning to the main menu...");
+                                //Breakar loop och återgår till välja antalet bäddar                               
                                     break;
 
                                 default:
-                                    Console.WriteLine("Wrong input. You can only press 1 or 2");
+                                    Console.WriteLine("\nWrong input. You can only press [1], [2] or [Esc]\n");
                                     break;
-                            }
-
-                            break;
+                            }                            
 
                         //case ConsoleKey.D2:
-                            // // LOGIN
                             // Console.Clear();
                             // Console.WriteLine("[1] - Login \n[2] - Create new account");
                             // Console.Write("Choice: ");
@@ -182,12 +166,7 @@ namespace ProgramUI
                             // }
                             //break;
 
-                        default:
-                            Console.WriteLine("Wrong input. You can only press 1 or 2");
-                            break;
-                    }
-                } while (true);
-
+                } while (bookingMenuChoice.Key != ConsoleKey.Escape);
             }
 
             // FOR STAFF
@@ -198,7 +177,7 @@ namespace ProgramUI
                 do
                 {
                     Console.Clear();
-                    Console.WriteLine("STAFF");
+                    Console.WriteLine("STAFF\n");
                     Console.WriteLine("Make a choice below");
                     Console.WriteLine("[1] - Check out guest\n[2] - View all rooms\n[3] - View all Avalible rooms\n[4] - Add new staff useraccount\n[5] - Add new room \n[6] - Exit program");
                     Console.Write("Choice: ");
@@ -209,22 +188,31 @@ namespace ProgramUI
                         case ConsoleKey.D1:
                             //checkout
                             int roomNumber;
+                                Console.Clear();
 
-                            System.Console.Write("Check out room number :");
-                            roomNumber = Convert.ToInt32(Console.ReadLine());
-                            PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumber); //// TA BORT HÅRD KOD. LÄGG TILL GUEST ID
-                            if (paymentNotice == PaymentNotice.Paid)
+                            do
                             {
-                                Console.WriteLine("Your room is already paid");
-                            }
-                            else
-                            {
-                                Console.WriteLine("We have now debt your creditcard");
-                                hotelManager.PayRoom(roomNumber);
-                            }
-                            // är det betalt så isbooked = false
-                            //är den inte - dras på kortet
-                            hotelManager.SetRoomAvailable(roomNumber);
+
+                                System.Console.Write("Check out room number :");
+                                roomNumber = Convert.ToInt32(Console.ReadLine());
+                                bool isBooked = hotelManager.IsBooked(roomNumber);
+                                
+                                if (isBooked == true)
+                                {
+                                    PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumber);
+                                    Console.WriteLine("\nDo not forget to charge the creditcard.\n");
+                                    hotelManager.PayRoom(roomNumber);
+                                    System.Console.WriteLine($"Room {roomNumber} is now avalible!");
+                                    Console.Write("Press any key to continue the check out.");
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("The room number you entered isn't booked!");
+                                }
+                            } while (true);
+                            
                             break;
 
                         case ConsoleKey.D2:
@@ -234,13 +222,16 @@ namespace ProgramUI
                             Console.Write("Press any key to return");
                             Console.ReadKey();
                             break;
+                            
                         case ConsoleKey.D3:
                             //View all Avalible rooms
+                            Console.Clear();
                             string output = PrintAllAvailableRooms();
                             Console.WriteLine(output);
                             Console.Write("Press any key to return");
                             Console.ReadKey();
                             break;
+
                         case ConsoleKey.D4:
                             //Add staff
                             Console.Clear();
@@ -254,6 +245,7 @@ namespace ProgramUI
 
                         case ConsoleKey.D5:
                             //add new room
+                             Console.Clear();
                             int squareMeters;
                             int numberOfBeds;
                             int pricePerNight;
@@ -262,23 +254,26 @@ namespace ProgramUI
                             //FELHANTERING
 
                             Console.WriteLine("Room number :");
-                            roomNumber = Convert.ToInt16(Console.ReadLine());
+                            roomNumber = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                             Console.WriteLine("Square meters :");
-                            squareMeters = Convert.ToInt16(Console.ReadLine());
+                            squareMeters = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                             Console.WriteLine("Number of beds :");
-                            numberOfBeds = Convert.ToInt16(Console.ReadLine());
+                            numberOfBeds = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                             Console.WriteLine("Price per night :");
-                            pricePerNight = Convert.ToInt32(Console.ReadLine());
+                            pricePerNight = Convert.ToInt32(Console.ReadLine()); //TRY CATCH
                             hotelManager.AddNewRoom(roomNumber, squareMeters, numberOfBeds, pricePerNight);
                             Console.WriteLine("Room added successfully\nPress any key to continue");
                             Console.ReadKey();
                             break;
+                            
                         case ConsoleKey.D6:
                             //Exit
                             ExitProgram();
                             break;
+                            
                         case ConsoleKey.Escape: // Återgå till main menu
                             break;
+                            
                         default:
                             Console.WriteLine("Wrong input. You can only make a choice between 1-6");
                             Console.ReadKey();
@@ -320,16 +315,15 @@ namespace ProgramUI
                     else
                     {
                         Console.WriteLine($"Wrong username or password. Do another try.\nTry {loginTry++} of 3");
+                        if (loginTry == 4)
+                        {
+                            Console.WriteLine("Number of tries overriden");
+                            Console.ReadKey();
+                            ExitProgram();
+                        }
                     }
                 }
-                while (loginTry <= 3);
-
-                if (loginTry == 3)
-                {
-                    Console.WriteLine("Number of tries overriden");
-                    ExitProgram();
-                }
-                
+                while (true);                
             }
 
             // CREATE NEW ACCOUNT
@@ -359,6 +353,7 @@ namespace ProgramUI
                             Console.Write("Press any key to do another try");
                             Console.ReadKey();
                         }
+                        
                     } while (userName.Length < 6 || userName.Length > 16 || isUserExisting == true);
 
                     do
@@ -371,21 +366,23 @@ namespace ProgramUI
                             Console.WriteLine("Password must contain 6 to 16 characters");
                             Console.ReadKey();
                         }
+                        
                     } while (password.Length < 6 || password.Length > 16);
 
                     if (guestOrStaff.Key == ConsoleKey.D2)
                     {
                         userAuthentication.AddStaffUser(userName, password, firstName, lastName);
                         Console.WriteLine("STAFF ADDED");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
                     }
                     else
                     {
-                        GetGuestDetails(firstName, lastName, userName, password);
-                        Console.WriteLine("GUEST ADDED");
+                        GetGuestDetails(firstName, lastName, userName, password);                        
                     }
-                    Console.Write("Press any key to continue");
-                    Console.ReadKey();
+
                     break;
+                    
                 } while (isUserExisting == true);
             }
 
@@ -403,8 +400,11 @@ namespace ProgramUI
                 string city = Console.ReadLine();
                 Console.Write("Creditcard number: ");
                 long creditCardNumber = Convert.ToInt64(Console.ReadLine()); //TRY CATCH
+
                 var output = userAuthentication.AddGuestUser(firstName, lastName, userName, password, email, phoneNumber, streetAddress, postalCode, city, creditCardNumber);
-                Console.WriteLine($"GuestID: {output.GuestId}");
+                Console.Clear();
+                Console.WriteLine("New account created!\n");
+                Console.WriteLine($"Your guest id is: {output.GuestId}. \nPlease save your guest id for further use in the booking system.");
                 guestId = output.GuestId;
             }
 
@@ -423,6 +423,7 @@ namespace ProgramUI
                         "Price per night: " + availableRooms[i].PricePerNight + "\n\n";
                     index++;
                 }
+                
                 return printSpecificAvailableRooms;
             }
 
@@ -438,6 +439,7 @@ namespace ProgramUI
                         "Square meters: " + room.SquareMeters + "\n" +
                         "Price per night: " + room.PricePerNight + "\n\n";
                 }
+
                 return printAvailableRooms;
             }
 
@@ -472,6 +474,7 @@ namespace ProgramUI
                     Console.Write("Firstname: ");
                     firstName = Console.ReadLine();
                     CheckUserInput(firstName);
+
                 } while (firstName.Length < 1);
 
                 // if kan inte vara noll
@@ -480,6 +483,7 @@ namespace ProgramUI
                     Console.Write("Lastname: ");
                     lastName = Console.ReadLine();
                     CheckUserInput(lastName);
+
                 } while (lastName.Length < 1);
             }
 
