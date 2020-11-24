@@ -14,13 +14,42 @@ namespace HotelClassLibrary
         public void BookRoom(int roomIndexNumber, int guestId)
         {
             int roomId = 0;
-            for (int i = roomIndexNumber - 1; i < availableRoomsList.Count; i++)
+            List<Room> availableRooms = AddToListOfAvailableRooms();
+            for (int i = 0; i < availableRooms.Count; i++)
             {
-                roomId = availableRoomsList[i].RoomNumber;
+                roomId = availableRoomsList[roomIndexNumber -1].RoomNumber;
             }
             Booking newBooking = new Booking(bookingCounter + 1, roomId, guestId);
-
+            bookingsList.Add(newBooking);
             SetRoomBooked(roomId);
+        }
+
+        public List<Room> AddToListOfAvailableRooms()
+        {
+            availableRoomsList.Clear();
+
+            foreach (Room room in allRoomsList)
+            {
+                if (room.IsBooked == false)
+                {
+                    availableRoomsList.Add(room);
+                }
+            }
+            return availableRoomsList;
+        }
+
+        public List<Room> AddToListOfAvailableRooms(int numberOfBeds)
+        {
+            availableRoomsList.Clear();
+
+            foreach (Room room in allRoomsList)
+            {
+                if (room.IsBooked == false && room.NumberOfBeds == numberOfBeds)
+                {
+                    availableRoomsList.Add(room);
+                }
+            }
+            return availableRoomsList;
         }
 
         private void SetRoomBooked(int roomNumber)
@@ -44,13 +73,13 @@ namespace HotelClassLibrary
                 }
             }
         }
-
+        //PaymentNotice är tänkt att användas i vidare utbyggnad av programmet.
         public PaymentNotice CheckoutGuest(int roomNumber)
         {
             PaymentNotice paymentNotice = PaymentNotice.NotPaid;
-
             foreach (Booking booking in bookingsList)
             {
+
                 if (roomNumber == booking.RoomNumber)
                 {
                     SetRoomAvailable(booking.RoomNumber);
@@ -61,6 +90,7 @@ namespace HotelClassLibrary
                     }
                 }
             }
+            AddToListOfAvailableRooms();
             return paymentNotice;
         }
 
@@ -114,35 +144,9 @@ namespace HotelClassLibrary
             }
             return roomDescriptions;
         }
-
-        public List<Room> AddToListOfAvailableRooms(int numberOfBeds)
-        {
-            availableRoomsList.Clear();
-
-            foreach (Room room in allRoomsList)
-            {
-                if (room.IsBooked == false && room.NumberOfBeds == numberOfBeds)
-                {
-                    availableRoomsList.Add(room);
-                }
-            }
-            return availableRoomsList;
-        }
-
-        public List<Room> AddToListOfAvailableRooms()
-        {
-            availableRoomsList.Clear();
-
-            foreach (Room room in allRoomsList)
-            {
-                if (room.IsBooked == false)
-                {
-                    availableRoomsList.Add(room);
-                }
-            }
-            return availableRoomsList;
-        }
-
+      
+        
+        //Tänkt för vidare utbyggnad av programmet...
         public Booking ViewBookedRoom(int guestId)
         {
             Booking newBooking = new Booking();
@@ -176,6 +180,7 @@ namespace HotelClassLibrary
         }
     }
 
+    //PaymentNotice är tänkt att användas i vidare utbyggnad av programmet.
     public enum PaymentNotice
     {
         Paid = 0,
