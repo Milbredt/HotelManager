@@ -278,7 +278,8 @@ namespace ProgramUI
 
                     if (guestOrStaff.Key == ConsoleKey.D2)
                     {
-                        userAuthentication.AddStaffUser(userName, password, firstName, lastName);
+                        string newStaffUser = userAuthentication.AddStaffUser(userName, password, firstName, lastName);
+                        Console.WriteLine(newStaffUser);
                         Console.WriteLine("STAFF ADDED");
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
@@ -356,33 +357,14 @@ namespace ProgramUI
                 hotelManager.AddNewRoom(402, 21, 2, 4333);
                 hotelManager.AddNewRoom(501, 20, 2, 2333);
                 hotelManager.AddNewRoom(502, 20, 1, 2133);
-            }
-
-            // void CheckUserInput(string input)
-            // {
-            //     do
-            //     {
-
-            //         if (string.IsNullOrEmpty(input))
-            //         {
-            //             Console.WriteLine("You must fill in something");
-            //             Console.Write("Press any key to do another try");
-            //             Console.ReadKey();
-            //         }
-            //         else
-            //         {
-            //             break;
-            //         }
-            //     } while (true);
-            // }
-        
+            }      
 
             void SetFirstName()
             {
                 do
                 {
                     Console.Write("Firstname: ");
-                    firstName = Console.ReadLine();//NullOrEmpty.ObjectDisposedException................................
+                    firstName = Console.ReadLine();
                    if (string.IsNullOrEmpty(firstName))
                    {
                        Console.WriteLine("You must fill in a firstname");
@@ -401,7 +383,7 @@ namespace ProgramUI
                 do
                 {
                     Console.Write("Lastname: ");
-                    lastName = Console.ReadLine();//NullOrEmpty.ObjectDisposedException................................
+                    lastName = Console.ReadLine();
                    if (string.IsNullOrEmpty(lastName))
                    {
                        Console.WriteLine("You must fill in a lastname");
@@ -503,7 +485,6 @@ namespace ProgramUI
                 return numberOfBeds;
             }
 
-
             int GetRoomChoice(List<Room> availableRooms)
             {
                 int roomChoice = 0;
@@ -561,6 +542,7 @@ namespace ProgramUI
                         PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumberToCheckOut);
                         Console.WriteLine("\nDo not forget to charge the creditcard.\n");
                         //hotelManager.PayRoom(roomNumber);
+                        //För senare version av programmet.
                         Console.WriteLine($"Room {roomNumberToCheckOut} is now avalible!");
                         Console.Write("Press any key to continue the check out");
                         Console.ReadKey();
