@@ -67,8 +67,9 @@ namespace HotelClassLibrary
             return false;
         }
 
+        //Finns möjlighet för framtida utveckling med att ta bort en användare
         /* 
-         public string RemoveUser(string userName) // HA KVAR?????????
+         public string RemoveUser(string userName) 
          {
              foreach (var user in listOfUsers)
              {
