@@ -544,7 +544,10 @@ namespace ProgramUI
                         }
                         catch
                         {
-                            System.Console.WriteLine("Wrong input. ");
+                            System.Console.WriteLine("Wrong input");
+                            Console.WriteLine("Please do another try.\n");
+                            Console.Write("Press any key to continue");
+                            Console.ReadKey();
                         }
 
                     } while (true);
@@ -553,7 +556,7 @@ namespace ProgramUI
                     if (isBooked == true)
                     {
                         PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumberToCheckOut);
-                        Console.WriteLine("\nCheckout succeded!\n");
+                        Console.WriteLine("\nCheckout succeded!");
                         Console.WriteLine("\nDon't forget to charge the creditcard.\n");
                         //hotelManager.PayRoom(roomNumber);
                         //För senare version av programmet.
@@ -565,6 +568,9 @@ namespace ProgramUI
                     else
                     {
                         Console.WriteLine("The room number you entered isn't booked!");
+                        Console.WriteLine("Please do another try \n");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
                     }
 
                 } while (true);
