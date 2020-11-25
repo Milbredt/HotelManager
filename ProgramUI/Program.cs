@@ -843,7 +843,7 @@ namespace ProgramUI
 
                     } while (setPhoneNumberLoop);
 
-                    if (phoneNumber < 00000000000 || phoneNumber > 999999999)
+                    if (phoneNumber < 099999999 || phoneNumber > 0999999999)
                     {
                         Console.WriteLine("You must type in a valid phone number");
                         Console.Write("Press any key to continue");
@@ -854,7 +854,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (phoneNumber < 10000000000 || phoneNumber > 999999999);
+                } while (phoneNumber < 099999999 || phoneNumber > 0999999999);
 
                 return phoneNumber;
             }
