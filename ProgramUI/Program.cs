@@ -102,7 +102,7 @@ namespace ProgramUI
                                 switch (inputKey.Key)
                                 {
                                     case ConsoleKey.D1:
-                                    Console.Clear();
+                                        Console.Clear();
                                         TryLogin();
                                         break;
 
@@ -159,7 +159,7 @@ namespace ProgramUI
                     Console.Clear();
                     Console.WriteLine("STAFF\n");
                     Console.WriteLine("Make a choice below");
-                    Console.WriteLine("[1] - Check out guest\n[2] - View all rooms\n[3] - View all available rooms\n[4] - Add new staff useraccount\n[5] - Add new room \n[6] - Exit program");
+                    Console.WriteLine("[1] - Checkout guest\n[2] - View all rooms\n[3] - View all available rooms\n[4] - Add new staff useraccount\n[5] - Add new room \n[6] - Exit program");
                     Console.Write("Choice: ");
                     input = Console.ReadKey();
 
@@ -358,7 +358,7 @@ namespace ProgramUI
                 hotelManager.AddNewRoom(402, 21, 2, 4333);
                 hotelManager.AddNewRoom(501, 20, 2, 2333);
                 hotelManager.AddNewRoom(502, 20, 1, 2133);
-            }      
+            }
 
             void SetFirstName()
             {
@@ -367,16 +367,16 @@ namespace ProgramUI
                     Console.Clear();
                     Console.Write("Firstname: ");
                     firstName = Console.ReadLine();
-                   if (string.IsNullOrEmpty(firstName))
-                   {
-                       Console.WriteLine("You must fill in a firstname");
+                    if (string.IsNullOrEmpty(firstName))
+                    {
+                        Console.WriteLine("You must fill in a firstname");
                         Console.Write("Press any key to do another try");
                         Console.ReadKey();
-                   }
-                   else
-                   {
-                       break;
-                   }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 } while (true);
             }
 
@@ -387,16 +387,16 @@ namespace ProgramUI
                     Console.Clear();
                     Console.Write("Lastname: ");
                     lastName = Console.ReadLine();
-                   if (string.IsNullOrEmpty(lastName))
-                   {
-                       Console.WriteLine("You must fill in a lastname");
+                    if (string.IsNullOrEmpty(lastName))
+                    {
+                        Console.WriteLine("You must fill in a lastname");
                         Console.Write("Press any key to do another try");
                         Console.ReadKey();
-                   }
-                   else
-                   {
-                       break;
-                   }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 } while (true);
             }
 
@@ -529,27 +529,36 @@ namespace ProgramUI
             void StaffCheckOut()
             {
                 int roomNumberToCheckOut = 0;
-                bool isBooked = hotelManager.IsBooked(roomNumberToCheckOut);
+                bool isBooked = false;
 
                 do
                 {
-                    try
+                    Console.Clear();
+                    Console.Write("Which room do you want to checkout : ");
+                    do
                     {
-                        roomNumberToCheckOut = Convert.ToInt32(Console.ReadLine());
-                    }
-                    catch
-                    {
-                        System.Console.WriteLine("Wrong input. ");
-                    }
+                        try
+                        {
+                            roomNumberToCheckOut = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        }
+                        catch
+                        {
+                            System.Console.WriteLine("Wrong input. ");
+                        }
 
+                    } while (true);
+
+                    isBooked = hotelManager.IsBooked(roomNumberToCheckOut);
                     if (isBooked == true)
                     {
                         PaymentNotice paymentNotice = hotelManager.CheckoutGuest(roomNumberToCheckOut);
-                        Console.WriteLine("\nDo not forget to charge the creditcard.\n");
+                        Console.WriteLine("\nCheckout succeded!\n");
+                        Console.WriteLine("\nDon't forget to charge the creditcard.\n");
                         //hotelManager.PayRoom(roomNumber);
                         //För senare version av programmet.
                         Console.WriteLine($"Room {roomNumberToCheckOut} is now avalible!");
-                        Console.Write("Press any key to continue the check out");
+                        Console.Write("Press any key to continue the checkout");
                         Console.ReadKey();
                         break;
                     }
@@ -894,7 +903,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (postalCode < 9999|| postalCode > 99999);
+                } while (postalCode < 9999 || postalCode > 99999);
 
                 return postalCode;
             }
