@@ -102,6 +102,7 @@ namespace ProgramUI
                                 switch (inputKey.Key)
                                 {
                                     case ConsoleKey.D1:
+                                    Console.Clear();
                                         TryLogin();
                                         break;
 
@@ -363,6 +364,7 @@ namespace ProgramUI
             {
                 do
                 {
+                    Console.Clear();
                     Console.Write("Firstname: ");
                     firstName = Console.ReadLine();
                    if (string.IsNullOrEmpty(firstName))
@@ -382,6 +384,7 @@ namespace ProgramUI
             {
                 do
                 {
+                    Console.Clear();
                     Console.Write("Lastname: ");
                     lastName = Console.ReadLine();
                    if (string.IsNullOrEmpty(lastName))
@@ -403,6 +406,7 @@ namespace ProgramUI
                 bool isUserExisting;
                 do
                 {
+                    Console.Clear();
                     Console.Write("Type in a username with 6 to 16 characters \nUsername: ");
                     userName = Console.ReadLine();
                     isUserExisting = userAuthentication.CheckIfUsernameExist(userName);
@@ -436,6 +440,7 @@ namespace ProgramUI
                     if (password.Length < 6 || password.Length > 16)
                     {
                         Console.WriteLine("Password must contain 6 to 16 characters");
+                        Console.Write("Press any key to do another try");
                         Console.ReadKey();
                     }
 
@@ -838,7 +843,7 @@ namespace ProgramUI
 
                     } while (setPhoneNumberLoop);
 
-                    if (phoneNumber < 10000000000 || phoneNumber > 99999999)
+                    if (phoneNumber < 00000000000 || phoneNumber > 999999999)
                     {
                         Console.WriteLine("You must type in a valid phone number");
                         Console.Write("Press any key to continue");
@@ -849,7 +854,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (phoneNumber < 10000000000 || phoneNumber > 99999999);
+                } while (phoneNumber < 10000000000 || phoneNumber > 999999999);
 
                 return phoneNumber;
             }
@@ -878,7 +883,7 @@ namespace ProgramUI
 
                     } while (setPostalCodeLoop);
 
-                    if (postalCode < 10000 || postalCode > 9999)
+                    if (postalCode < 9999 || postalCode > 99999)
                     {
                         Console.WriteLine("You must type in 5 digit number");
                         Console.Write("Press any key to continue");
@@ -889,7 +894,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (postalCode < 10000 || postalCode > 9999);
+                } while (postalCode < 9999|| postalCode > 99999);
 
                 return postalCode;
             }
@@ -918,7 +923,7 @@ namespace ProgramUI
 
                     } while (setcreditCardNumber);
 
-                    if (creditcardNumber < 10000000000000000 || creditcardNumber > 999999999999999)
+                    if (creditcardNumber < 999999999999999 || creditcardNumber > 999999999999999999)
                     {
                         Console.WriteLine("You must type in a valid creditcard number");
                         Console.Write("Press any key to continue");
@@ -929,7 +934,7 @@ namespace ProgramUI
                         break;
                     }
 
-                } while (creditcardNumber < 10000000000000000 || creditcardNumber > 999999999999999);
+                } while (creditcardNumber < 999999999999999 || creditcardNumber > 999999999999999999);
 
                 return creditcardNumber;
             }
